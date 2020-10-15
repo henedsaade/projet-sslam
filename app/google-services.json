@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "566572672851",
+    "firebase_url": "https://seg-project-98aec.firebaseio.com",
+    "project_id": "seg-project-98aec",
+    "storage_bucket": "seg-project-98aec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:566572672851:android:7dbee3c035d748532ae3a6",
+        "android_client_info": {
+          "package_name": "com.example.servicenovigrad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "566572672851-nvj2cqrhudle0f5ml86ms2tjv2e1didq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANOWcH2CNGSInhccGx_howPh7okGNipsE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "566572672851-nvj2cqrhudle0f5ml86ms2tjv2e1didq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
