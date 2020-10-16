@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.servicenovigrad.ui.login.SignUpPage;
-
 public class MainActivity extends AppCompatActivity {
     private Button loginButton;
     private Button signupButton;
@@ -41,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openSignUpPage() {
-        Intent intent = new Intent(this, SignUpPage.class);
+        Intent intent = new Intent(this, SignUpPage2.class);
         startActivity(intent);
     }
 }
