@@ -1,6 +1,6 @@
 package com.example.servicenovigrad;
 
-enum AccountType {
+public enum AccountType {
     ADMIN,
     EMPLOYEE,
     CLIENT

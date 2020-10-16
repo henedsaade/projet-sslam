@@ -2,12 +2,13 @@ package com.example.servicenovigrad;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class Account {
-    public static final String firestoreUsersRoutes[] = new String[] {"allUsers/admins/adminUsers", "allUsers/employees/employeeUsers", "allUsers/clients/clientUsers"};
-    private String userName;
-    private String email;
-    private String uid;
-    private AccountType accountType;
+public abstract class Account {
+    protected static final String TAG = "[CONSOLE]";
+    public static final String firestoreUsersRoutes[] = new String[] {"allUsers/admins/adminUsers/", "allUsers/employees/employeeUsers/", "allUsers/clients/clientUsers/"};
+    protected String userName;
+    protected String email;
+    protected String uid;
+    protected AccountType accountType;
 
     public Account(String userName, String email, String uid, AccountType accountType){
         this.userName = userName;
@@ -16,7 +17,7 @@ public class Account {
         this.accountType = accountType;
     }
 
-    public abstract void saveAccountToFirestore(FirebaseFirestore mFirestore);
+    public abstract void saveAccountToFirestore(FirebaseFirestore mFirestore, long timestamp);
     
     public String getEmail(){
         return this.email;
