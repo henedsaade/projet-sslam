@@ -14,8 +14,27 @@ import java.util.Map;
 import static android.content.ContentValues.TAG;
 
 public class EmployeeAccount extends Account {
-    public EmployeeAccount(String userName, String email, String uid, AccountType accountType){
-        super(userName, email, uid, accountType);
+    public static final AccountType accountType = AccountType.EMPLOYEE;
+    private String userName;
+    private String email;
+    private String uid;
+
+    public EmployeeAccount(String userName, String email, String uid) {
+        this.userName = userName;
+        this.email = email;
+        this.uid = uid;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public String getUserName() {
+        return this.userName;
+    }
+
+    public String getUid() {
+        return this.uid;
     }
 
     public void saveAccountToFirestore(FirebaseFirestore mFirestore, long timestamp) {

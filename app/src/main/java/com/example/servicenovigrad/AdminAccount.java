@@ -12,11 +12,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AdminAccount extends Account {
+    public static final AccountType accountType = AccountType.ADMIN;
+    private String userName;
+    private String email;
+    private String uid;
 
-    public AdminAccount(String userName, String email, String uid, AccountType accountType) {
-        super(userName, email, uid, accountType);
+    public AdminAccount(String userName, String email, String uid) {
+        this.userName = userName;
+        this.email = email;
+        this.uid = uid;
     }
-    
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public String getUserName() {
+        return this.userName;
+    }
+
+    public String getUid() {
+        return this.uid;
+    }
+
     public void saveAccountToFirestore(FirebaseFirestore mFirestore, long timestamp) {
         Map<String, Object> dataToSave = new HashMap<String, Object>();
         dataToSave.put("email", this.email);

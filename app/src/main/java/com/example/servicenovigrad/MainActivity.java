@@ -47,9 +47,9 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, currentUser.getDisplayName());
         }
 
-        handleSignUp("John Doe","test@gmail.com", "abcdef12345", AccountType.EMPLOYEE);
+        //handleSignUp("John Doe","test@gmail.com", "abcdef12345", AccountType.EMPLOYEE);
         //saveAccountToFirestore(new Account("name", "email@gmail.com", "123124124121", AccountType.CLIENT));
-        // handleSignIn("test@gmail.com", "abcdef12345", AccountType.EMPLOYEE);
+         handleSignIn("test@gmail.com", "abcdef12345", AccountType.EMPLOYEE);
 
         //updateUI(currentUser);
     }
@@ -57,11 +57,11 @@ public class MainActivity extends AppCompatActivity {
     public Account newAccountFromType(String userName, String email, String uid, AccountType accountType) {
         switch (accountType.ordinal()) {
             case 0:
-                return new AdminAccount(userName, email, uid, accountType);                
+                return new AdminAccount(userName, email, uid);
             case 1:
-                return new EmployeeAccount(userName, email, uid, accountType);
+                return new EmployeeAccount(userName, email, uid);
             case 2:
-                return new ClientAccount(userName, email, uid, accountType);
+                return new ClientAccount(userName, email, uid);
             default:
                 return null;
         }
@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     // Sign in success, update UI with the signed-in user's information
                     FirebaseUser user = mAuth.getCurrentUser();
 
+                    // Change display name of firebase user
                     UserProfileChangeRequest.Builder request = new UserProfileChangeRequest.Builder();
                     request = request.setDisplayName(userName);
                     UserProfileChangeRequest displayNameRequest = request.build();
@@ -108,8 +109,10 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     // Sign in success, update UI with the signed-in user's information
+
                     FirebaseUser user = mAuth.getCurrentUser();
                     currentUser = newAccountFromType(user.getDisplayName(), user.getEmail(), user.getUid(), accountType);
+
                     Log.d(TAG, "Username: " + currentUser.getUserName() + " Email: " + currentUser.getEmail() + " UID: " + currentUser.getUid());
                     //updateUI(user);
                 } else {
