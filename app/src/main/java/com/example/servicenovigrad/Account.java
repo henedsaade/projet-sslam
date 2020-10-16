@@ -4,7 +4,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public abstract class Account {
     protected static final String TAG = "[CONSOLE]";
-    public static final String firestoreUsersRoutes[] = new String[] {"allUsers/admins/adminUsers/", "allUsers/employees/employeeUsers/", "allUsers/clients/clientUsers/"};
 
     public abstract void saveAccountToFirestore(FirebaseFirestore mFirestore, long timestamp);
     

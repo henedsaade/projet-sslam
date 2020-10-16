@@ -7,12 +7,14 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class AdminAccount extends Account {
     public static final AccountType accountType = AccountType.ADMIN;
+    private static final String firestoreUsersRoute = "allUsers/admins/adminUsers/";
     private String userName;
     private String email;
     private String uid;
@@ -39,26 +41,12 @@ public class AdminAccount extends Account {
         Map<String, Object> dataToSave = new HashMap<String, Object>();
         dataToSave.put("email", this.email);
         dataToSave.put("createdAt", timestamp);
-        mFirestore.document(Account.firestoreUsersRoutes[this.accountType.ordinal()] + this.uid).set(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Log.d(TAG, "Document has been saved!");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.w(TAG, "Document was not savec!");
-            }
-        });
-//        mFirestore.document("services/template").addSnapshotListener(new EventListener<DocumentSnapshot>() {
-//            @Override
-//            public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
-//                if (documentSnapshot.exists()) {
-//                    // Map<String, Object> data = documentSnapshot.getData();
-//                    ArrayList<String> docs = (ArrayList<String>) documentSnapshot.get("docs");
-//                    System.out.println("Required document: " + docs.get(0));
-//                }
-//            }
-//        });
+        String documentPath = firestoreUsersRoute + this.uid;
+
+        try {
+            FirestoreWrapper.setDocument(documentPath, dataToSave);
+        } catch (FirebaseFirestoreException e) {
+            Log.d(TAG, e.getMessage());
+        }
     }
 }
