@@ -38,6 +38,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="24dp"
         android:hint="Prénom"
+        android:textColorHint="@color/black"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
         android:textColorHint="@color/black"
