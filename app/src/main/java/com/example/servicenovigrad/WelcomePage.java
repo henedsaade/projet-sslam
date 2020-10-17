@@ -1,32 +1,26 @@
 package com.example.servicenovigrad;
 
+
 import android.os.Bundle;
+import android.content.Intent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.text.TextUtils;
+import android.util.Patterns;
+import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
-
-import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-
-import com.example.servicenovigrad.ui.main.SectionsPagerAdapter;
-
 public class WelcomePage extends AppCompatActivity {
+    private TextView welcomeMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_page);
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        ViewPager viewPager = findViewById(R.id.view_pager);
-        viewPager.setAdapter(sectionsPagerAdapter);
-        tabs.setupWithViewPager(viewPager);
-        TextView welcomeMessage= (TextView) findViewById(R.Id.welcome);
-        welcomeMessage.setText("Bienvenue, ")
+        welcomeMessage= (TextView) findViewById(R.id.welcome);
+        welcomeMessage.setText("Bienvenue, ");
 
     }
 }
