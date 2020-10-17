@@ -123,9 +123,4 @@ public class MainActivity extends AppCompatActivity {
         return validUser && validPass;
     }
 
-    public boolean checkValidSignUp(){
-        //boolean utilisateurVide = utilisateur.getText().toString().isEmpty();
-        //boolean passeVide = motDePasse.getText().toString().isEmpty();
-        return true;
-    }
 }
