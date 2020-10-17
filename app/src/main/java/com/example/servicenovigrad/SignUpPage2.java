@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.widget.TextView;
 //import java.lang.Object.javax.mail.internet.InternetAddress;
 //import org.apache.commons.validator.routines.EmailValidator;
 
@@ -21,6 +22,7 @@ public class SignUpPage2 extends AppCompatActivity {
     private EditText utilisateur;
     private EditText motDePasse;
     private EditText confirmationMotDePasse;
+    private TextView errors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,8 @@ public class SignUpPage2 extends AppCompatActivity {
             public void onClick(View v) {
                 if(checkValidSignUp()) {
                     openWelcomePage();
+                }else{
+                    createError();
                 }
             }
         });
@@ -43,6 +47,7 @@ public class SignUpPage2 extends AppCompatActivity {
         utilisateur = (EditText) findViewById(R.id.username);
         motDePasse = (EditText) findViewById(R.id.password);
         confirmationMotDePasse = (EditText) findViewById(R.id.confirmpassword);
+        errors = (TextView) findViewById(R.id.errorMessages);
 
     }
 
@@ -61,7 +66,9 @@ public class SignUpPage2 extends AppCompatActivity {
         return prenomValide && nomValide && utilisateurValide && courrielValide && passeValide && confirmationValide;
     }
 
-
+    public void createError(){
+        errors.setText("you have entered invalid credentials");
+    }
     public static boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
