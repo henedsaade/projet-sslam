@@ -2,19 +2,13 @@ package com.example.servicenovigrad;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class AdminAccount extends Account {
-    public static final AccountType accountType = AccountType.ADMIN;
-    private static final String firestoreUsersRoute = "allUsers/admins/adminUsers/";
     private String userName;
     private String email;
     private String uid;
@@ -37,10 +31,19 @@ public class AdminAccount extends Account {
         return this.uid;
     }
 
-    public void saveAccountToFirestore(FirebaseFirestore mFirestore, long timestamp) {
+    public AccountType getAccountType() {
+        return AccountType.ADMIN;
+    }
+
+    public String toString() {
+        return "Username: " + userName + ", Email: " + email + ", " + "Account Type: ADMIN";
+    }
+
+    public void saveAccountToFirestore(FieldValue timestamp) {
         Map<String, Object> dataToSave = new HashMap<String, Object>();
         dataToSave.put("email", this.email);
         dataToSave.put("createdAt", timestamp);
+        dataToSave.put("role", "admin");
         String documentPath = firestoreUsersRoute + this.uid;
 
         try {
