@@ -29,19 +29,20 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-//        FirebaseUser fUser = mAuth.getCurrentUser();
-//        if (fUser != null) {
-//            Log.d(TAG, fUser.getDisplayName());
-//        }
-
-        handleSignIn("test@gmail.com", "abcdef12345");
-//        handleSignUp("John Doe", "test@gmail.com", "abcdef12345", AccountType.EMPLOYEE);
-
-    }
+    //
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        // Check if user is signed in (non-null) and update UI accordingly.
+////        FirebaseUser fUser = mAuth.getCurrentUser();
+////        if (fUser != null) {
+////            Log.d(TAG, fUser.getDisplayName());
+////        }
+//
+////        handleSignIn("test123@gmail.com", "abcdef12345");
+////        handleSignUp("Bob Doe", "test123@gmail.com", "abcdef12345", AccountType.CLIENT);
+//
+//    }
 
     /* Use this method ONLY for sign up!
     * */
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                     // Save user data to Firestore
                     currentUser.saveAccountToFirestore(FieldValue.serverTimestamp());
 
+                    // update ui
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.d(TAG, "createUserWithEmail:failure");
@@ -132,9 +134,10 @@ public class MainActivity extends AppCompatActivity {
                                 }
 
                                 Log.d(TAG, currentUser.toString());
+                                // update ui
 
-                            // async task failed
                             } else {
+                                // async task failed
                                 Log.d(TAG, "get failed with ", task.getException());
                                 handleSignOut();
                             }
