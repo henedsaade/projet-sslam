@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
     public void loginError(){
         motDePasse.setText("");
         utilisateur.setText("");
-        errors.setText("You have entered invalid credentials");
+        errors.setText("you have entered invalid credentials");
     }
 
     public boolean checkValidLogin(){
