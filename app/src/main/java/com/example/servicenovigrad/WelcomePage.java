@@ -12,15 +12,19 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class WelcomePage extends AppCompatActivity {
     private TextView welcomeMessage;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        String username = mAuth.getCurrentUser().getDisplayName();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_page);
         welcomeMessage= (TextView) findViewById(R.id.welcome);
-        welcomeMessage.setText("Bienvenue, ");
+        welcomeMessage.setText("Bienvenue, " +username);
 
     }
 }
