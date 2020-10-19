@@ -22,12 +22,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class WelcomePage extends AppCompatActivity {
     private TextView welcomeMessage;
-    private FirebaseUser user;
-    String prenom;
-    //AccountType type;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
