@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,21 +28,18 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "[CONSOLE]";
-    private FirebaseAuth mAuth;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private Account currentUser;
     private Button loginButton;
     private Button signupButton;
     private EditText motDePasse;
     private EditText utilisateur;
     private TextView errors;
+    private FbWrapper fb = FbWrapper.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mAuth = FirebaseAuth.getInstance();
-        
+
         motDePasse = (EditText) findViewById(R.id.password);
         utilisateur = (EditText) findViewById(R.id.username);
         loginButton = (Button) findViewById(R.id.login);
@@ -114,6 +112,19 @@ public class MainActivity extends AppCompatActivity {
                 errors.setText("");
             }
         });
+
+        if (fb.isUserLoggedIn()) {
+            fb.initiateUser().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        openWelcomePage();
+                    } else {
+                        fb.handleSignOut();
+                    }
+                }
+            });
+        }
     }
 
     //
@@ -131,117 +142,8 @@ public class MainActivity extends AppCompatActivity {
 //
 //    }
 
-    /* Use this method ONLY for sign up!
-    * */
-    public Account accountFromType(String userName, String email, String uid, AccountType accountType) {
-        switch (accountType.ordinal()) {
-            case 0:
-                return new AdminAccount(userName, email, uid);
-            case 1:
-                return new EmployeeAccount(userName, email, uid);
-            case 2:
-                return new ClientAccount(userName, email, uid);
-            default:
-                return null;
-        }
-    }
 
-    public void handleSignUp(final String userName, final String email, String password, final AccountType accountType) {
-        // check if email and password are valid
 
-        mAuth.createUserWithEmailAndPassword(email, password)
-        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    // Sign in success, update UI with the signed-in user's information
-                    FirebaseUser fUser = mAuth.getCurrentUser();
-
-                    // Change display name of firebase user
-                    UserProfileChangeRequest.Builder request = new UserProfileChangeRequest.Builder();
-                    request = request.setDisplayName(userName);
-                    UserProfileChangeRequest displayNameRequest = request.build();
-                    fUser.updateProfile(displayNameRequest);
-
-                    // Get instance
-                    currentUser = accountFromType(userName, email, fUser.getUid(), accountType);
-                    Log.d(TAG, currentUser.toString());
-
-                    // Save user data to Firestore
-                    currentUser.saveAccountToFirestore(FieldValue.serverTimestamp());
-
-                    // update ui
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.d(TAG, "createUserWithEmail:failure");
-                }
-            }
-        });
-    }
-
-    public void handleSignIn(String email, String password) {
-
-        mAuth.signInWithEmailAndPassword(email, password)
-        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    // Sign in success, update UI with the signed-in user's information
-                    final FirebaseUser fUser = mAuth.getCurrentUser();
-
-                    // Get instance
-                    db.document(Account.firestoreUsersRoute + fUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if (task.isSuccessful()) {
-                                DocumentSnapshot document = task.getResult();
-
-                                if (document.exists()) {
-                                    String role = (String) document.get("role");
-
-                                    switch (role) {
-                                        case "admin":
-                                            currentUser = new AdminAccount(fUser.getDisplayName(), fUser.getEmail(), fUser.getUid());
-                                            break;
-                                        case "employee":
-                                            currentUser = new EmployeeAccount(fUser.getDisplayName(), fUser.getEmail(), fUser.getUid());
-                                            break;
-                                        case "client":
-                                            currentUser = new ClientAccount(fUser.getDisplayName(), fUser.getEmail(), fUser.getUid());
-                                            break;
-                                        default:
-                                            handleSignOut();
-                                            break;
-                                    }
-
-                                    // failed to find user in firestore
-                                } else {
-                                    Log.d(TAG, "No such document");
-                                    handleSignOut();
-                                }
-
-                                Log.d(TAG, currentUser.toString());
-                                // update ui
-
-                            } else {
-                                // async task failed
-                                Log.d(TAG, "get failed with ", task.getException());
-                                handleSignOut();
-                            }
-                        }
-                    });
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.d(TAG, "signInWithEmail:failure");
-                }
-            }
-        });
-    }
-
-    public void handleSignOut() {
-        mAuth.signOut();
-        currentUser = null;
-    }
 
     public void openWelcomePage() {
         Intent intent = new Intent(this, WelcomePage.class);
@@ -253,20 +155,22 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void loginError(){
+    public void loginError() {
         motDePasse.setText("");
         utilisateur.setText("");
         errors.setText("You have entered invalid credentials");
     }
 
-    public boolean checkValidLogin(){
-        String utilisateurS = utilisateur.getText().toString();
-        String passeS = motDePasse.getText().toString();
-        String utilisateurCorrect="admin";
-        String passeCorrect="123admin456";
-        boolean validUser=utilisateurS.equals(utilisateurCorrect);
-        boolean validPass=passeS.equals(passeCorrect);
-        return validUser && validPass;
+    public boolean checkValidLogin() {
+        fb.handleSignIn(utilisateur.getText().toString(), motDePasse.getText().toString());
+        return fb.isUserLoggedIn();
+//        String utilisateurS = utilisateur.getText().toString();
+//        String passeS = motDePasse.getText().toString();
+//        String utilisateurCorrect="admin";
+//        String passeCorrect="123admin456";
+//        boolean validUser=utilisateurS.equals(utilisateurCorrect);
+//        boolean validPass=passeS.equals(passeCorrect);
+//        return validUser && validPass;
     }
 
 }

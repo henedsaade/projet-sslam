@@ -39,7 +39,7 @@ public class AdminAccount extends Account {
         return "Username: " + userName + ", Email: " + email + ", " + "Account Type: ADMIN";
     }
 
-    public void saveAccountToFirestore(FieldValue timestamp) {
+    public void saveAccountToFirestore(FbWrapper fb, FieldValue timestamp) {
         Map<String, Object> dataToSave = new HashMap<String, Object>();
         dataToSave.put("email", this.email);
         dataToSave.put("createdAt", timestamp);
@@ -47,7 +47,7 @@ public class AdminAccount extends Account {
         String documentPath = firestoreUsersRoute + this.uid;
 
         try {
-            FirestoreWrapper.setDocument(documentPath, dataToSave);
+            fb.setDocument(documentPath, dataToSave);
         } catch (FirebaseFirestoreException e) {
             Log.d(TAG, e.getMessage());
         }

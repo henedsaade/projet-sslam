@@ -16,11 +16,12 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class WelcomePage extends AppCompatActivity {
     private TextView welcomeMessage;
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FbWrapper fb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        String username = mAuth.getCurrentUser().getDisplayName();
+        fb = FbWrapper.getInstance();
+        String username = fb.getUserName();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_page);
         welcomeMessage= (TextView) findViewById(R.id.welcome);
