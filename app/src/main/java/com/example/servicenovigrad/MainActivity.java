@@ -50,14 +50,28 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //check valid login
-                if(checkValidLogin()) {
-                    openWelcomePage();
-                }else{
-                    loginError();
-                }
+                fb.handleSignIn(utilisateur.getText().toString(), motDePasse.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            fb.initiateUser().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        openWelcomePage();
+                                    } else {
+                                        fb.handleSignOut();
+                                        loginError();
+                                    }
+                                }
+                            });
+                        } else {
+                            loginError();
+                        }
+                    }
+                });
             }
         });
-
 
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,16 +175,14 @@ public class MainActivity extends AppCompatActivity {
         errors.setText("You have entered invalid credentials");
     }
 
-    public boolean checkValidLogin() {
-        fb.handleSignIn(utilisateur.getText().toString(), motDePasse.getText().toString());
-        return fb.isUserLoggedIn();
-//        String utilisateurS = utilisateur.getText().toString();
-//        String passeS = motDePasse.getText().toString();
-//        String utilisateurCorrect="admin";
-//        String passeCorrect="123admin456";
-//        boolean validUser=utilisateurS.equals(utilisateurCorrect);
-//        boolean validPass=passeS.equals(passeCorrect);
-//        return validUser && validPass;
-    }
+//    public boolean checkValidLogin() {
+////        String utilisateurS = utilisateur.getText().toString();
+////        String passeS = motDePasse.getText().toString();
+////        String utilisateurCorrect="admin";
+////        String passeCorrect="123admin456";
+////        boolean validUser=utilisateurS.equals(utilisateurCorrect);
+////        boolean validPass=passeS.equals(passeCorrect);
+////        return validUser && validPass;
+//    }
 
 }

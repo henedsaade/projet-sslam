@@ -140,8 +140,6 @@ public class FbWrapper {
 
                             // Save user data to Firestore
                             currentUser.saveAccountToFirestore(mInstance, FieldValue.serverTimestamp());
-
-                            // update ui
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.d(TAG, "createUserWithEmail:failure");
@@ -156,7 +154,7 @@ public class FbWrapper {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            initiateUser();
+                            Log.d(TAG, "signInWithEmail:success");
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.d(TAG, "signInWithEmail:failure");
