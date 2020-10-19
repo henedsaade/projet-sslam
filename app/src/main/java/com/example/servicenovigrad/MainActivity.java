@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private Button loginButton;
     private Button signupButton;
     private EditText motDePasse;
-    private EditText utilisateur;
+    private EditText addresse_courriel;
     private TextView errors;
     private FbWrapper fb = FbWrapper.getInstance();
 
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         motDePasse = (EditText) findViewById(R.id.password);
-        utilisateur = (EditText) findViewById(R.id.username);
+        addresse_courriel = (EditText) findViewById(R.id.courriel);
         loginButton = (Button) findViewById(R.id.login);
         signupButton = (Button) findViewById(R.id.signup);
         errors = (TextView) findViewById(R.id.errorMessages);
@@ -50,26 +50,30 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //check valid login
-                fb.handleSignIn(utilisateur.getText().toString(), motDePasse.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            fb.initiateUser().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        openWelcomePage();
-                                    } else {
-                                        fb.handleSignOut();
-                                        loginError();
+                if(!addresse_courriel.getText().toString().equals("") && !motDePasse.getText().toString().equals("")) {
+                    fb.handleSignIn(addresse_courriel.getText().toString(), motDePasse.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                fb.initiateUser().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            openWelcomePage();
+                                        } else {
+                                            fb.handleSignOut();
+                                            loginError();
+                                        }
                                     }
-                                }
-                            });
-                        } else {
-                            loginError();
+                                });
+                            } else {
+                                loginError();
+                            }
                         }
-                    }
-                });
+                    });
+                }else{
+                    loginError();
+                }
             }
         });
 
@@ -87,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        utilisateur.setOnClickListener(new View.OnClickListener() {
+        addresse_courriel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 errors.setText("");
@@ -110,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        utilisateur.addTextChangedListener(new TextWatcher() {
+        addresse_courriel.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //requires no code
@@ -171,8 +175,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void loginError() {
         motDePasse.setText("");
-        utilisateur.setText("");
-        errors.setText("You have entered invalid credentials");
+        addresse_courriel.setText("");
+        errors.setText("Vous avez entré la mauvaise information");
     }
 
 //    public boolean checkValidLogin() {

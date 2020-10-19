@@ -105,7 +105,7 @@ public class SignUpPage2 extends AppCompatActivity {
     }
 
     public void createError(){
-        errors.setText("You have entered invalid credentials");
+        errors.setText("Vous avez entré la mauvaise information");
     }
     public static boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
