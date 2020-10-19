@@ -34,11 +34,11 @@ public class WelcomePage extends AppCompatActivity {
             }
         });
 
-        String username = fb.getCurrentUser().getUserName();
+        String prenom = fb.getCurrentUser().getFirstName();
         String role = fb.getCurrentUser().getRole();
 
         welcomeMessage= (TextView) findViewById(R.id.welcome);
-        welcomeMessage.setText("Bienvenue, " + username + ". Vous êtes connecté sous un compte " + role + ".");
+        welcomeMessage.setText("Bienvenue, " + prenom + ". Vous êtes connecté sous un compte " + role + ".");
     }
 
     public void openSignInPage() {

@@ -61,7 +61,7 @@ public class SignUpPage2 extends AppCompatActivity {
                     try {
                         int var = Integer.parseInt(utilisateur.getText().toString());
                         if(var<1000000000 && var>99999999) {
-                            fb.handleSignUp(Integer.toString(var), courriel.getText().toString(), motDePasse.getText().toString(), AccountType.EMPLOYEE).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            fb.handleSignUp(Integer.toString(var), prenom.getText().toString(), nom.getText().toString(), courriel.getText().toString(), motDePasse.getText().toString(), AccountType.EMPLOYEE).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     openWelcomePage();
@@ -74,7 +74,7 @@ public class SignUpPage2 extends AppCompatActivity {
                     catch (NumberFormatException e) {
                         // it was not a number
                         //create client
-                        fb.handleSignUp(utilisateur.getText().toString(), courriel.getText().toString(), motDePasse.getText().toString(), AccountType.CLIENT).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        fb.handleSignUp(utilisateur.getText().toString(), prenom.getText().toString(), nom.getText().toString(), courriel.getText().toString(), motDePasse.getText().toString(), AccountType.CLIENT).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 openWelcomePage();

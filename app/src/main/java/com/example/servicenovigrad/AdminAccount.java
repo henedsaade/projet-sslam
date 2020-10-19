@@ -9,26 +9,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AdminAccount extends Account {
-    private String userName;
-    private String email;
-    private String uid;
-
-    public AdminAccount(String userName, String email, String uid) {
+    public AdminAccount(String userName, String firstName, String lastName, String email, String uid) {
         this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.uid = uid;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
-
-    public String getUserName() {
-        return this.userName;
-    }
-
-    public String getUid() {
-        return this.uid;
     }
 
     public AccountType getAccountType() {
@@ -45,6 +31,8 @@ public class AdminAccount extends Account {
         Map<String, Object> dataToSave = new HashMap<String, Object>();
         dataToSave.put("email", this.email);
         dataToSave.put("createdAt", timestamp);
+        dataToSave.put("firstName", this.firstName);
+        dataToSave.put("lastName", this.lastName);
         dataToSave.put("role", "admin");
         String documentPath = firestoreUsersRoute + this.uid;
 

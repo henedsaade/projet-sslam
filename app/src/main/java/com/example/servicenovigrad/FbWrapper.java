@@ -70,16 +70,18 @@ public class FbWrapper {
 
                         if (document.exists()) {
                             String role = (String) document.get("role");
+                            String firstName = (String) document.get("firstName");
+                            String lastName = (String) document.get("lastName");
 
                             switch (role) {
                                 case "admin":
-                                    currentUser = new AdminAccount(fUser.getDisplayName(), fUser.getEmail(), fUser.getUid());
+                                    currentUser = new AdminAccount(fUser.getDisplayName(), firstName, lastName, fUser.getEmail(), fUser.getUid());
                                     break;
                                 case "employee":
-                                    currentUser = new EmployeeAccount(fUser.getDisplayName(), fUser.getEmail(), fUser.getUid());
+                                    currentUser = new EmployeeAccount(fUser.getDisplayName(), firstName, lastName, fUser.getEmail(), fUser.getUid());
                                     break;
                                 case "client":
-                                    currentUser = new ClientAccount(fUser.getDisplayName(), fUser.getEmail(), fUser.getUid());
+                                    currentUser = new ClientAccount(fUser.getDisplayName(), firstName, lastName, fUser.getEmail(), fUser.getUid());
                                     break;
                                 default:
                                     handleSignOut();
@@ -119,7 +121,7 @@ public class FbWrapper {
         });
     }
 
-    public Task<AuthResult> handleSignUp(final String userName, final String email, String password, final AccountType accountType) {
+    public Task<AuthResult> handleSignUp(final String userName, final String firstName, final String lastName, final String email, String password, final AccountType accountType) {
         return auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -135,7 +137,7 @@ public class FbWrapper {
                             fUser.updateProfile(displayNameRequest);
 
                             // Get instance
-                            currentUser = Account.accountFromType(userName, email, fUser.getUid(), accountType);
+                            currentUser = Account.accountFromType(userName, firstName, lastName, email, fUser.getUid(), accountType);
 //                            Log.d(TAG, currentUser.toString());
 
                             // Save user data to Firestore

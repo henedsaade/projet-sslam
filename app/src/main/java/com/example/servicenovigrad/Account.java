@@ -5,14 +5,29 @@ import com.google.firebase.firestore.FieldValue;
 public abstract class Account extends Object {
     protected static final String TAG = "[CONSOLE]";
     protected static final String firestoreUsersRoute = "users/";
+    protected String userName, firstName, lastName, email, uid;
 
     public abstract void saveAccountToFirestore(FbWrapper fb, FieldValue timestamp);
     
-    public abstract String getEmail();
+    public String getEmail()  {
+        return this.email;
+    };
     
-    public abstract String getUserName();
+    public String getUserName()  {
+        return this.userName;
+    };
 
-    public abstract String getUid();
+    public String getUid()  {
+        return this.uid;
+    };
+
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public String getLastName() {
+        return this.lastName;
+    }
 
     public abstract AccountType getAccountType();
 
@@ -20,14 +35,14 @@ public abstract class Account extends Object {
 
     /* Use this method ONLY for sign up!
      * */
-    public static Account accountFromType(String userName, String email, String uid, AccountType accountType) {
+    public static Account accountFromType(String userName, String firstName, String lastName, String email, String uid, AccountType accountType) {
         switch (accountType.ordinal()) {
             case 0:
-                return new AdminAccount(userName, email, uid);
+                return new AdminAccount(userName, firstName, lastName, email, uid);
             case 1:
-                return new EmployeeAccount(userName, email, uid);
+                return new EmployeeAccount(userName, firstName, lastName, email, uid);
             case 2:
-                return new ClientAccount(userName, email, uid);
+                return new ClientAccount(userName, firstName, lastName, email, uid);
             default:
                 return null;
         }
