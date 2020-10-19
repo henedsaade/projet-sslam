@@ -136,7 +136,7 @@ public class FbWrapper {
 
                             // Get instance
                             currentUser = Account.accountFromType(userName, email, fUser.getUid(), accountType);
-                            Log.d(TAG, currentUser.toString());
+//                            Log.d(TAG, currentUser.toString());
 
                             // Save user data to Firestore
                             currentUser.saveAccountToFirestore(mInstance, FieldValue.serverTimestamp());
@@ -170,36 +170,8 @@ public class FbWrapper {
         currentUser = null;
     }
 
-    public String getUserName() {
-        if (this.currentUser != null) {
-            return this.currentUser.getUserName();
-        }
-
-        return null;
-    }
-
-    public String getEmail() {
-        if (this.currentUser != null) {
-            return this.currentUser.getEmail();
-        }
-
-        return null;
-    }
-
-    public String getUid() {
-        if (this.currentUser != null) {
-            return this.currentUser.getUid();
-        }
-
-        return null;
-    }
-
-    public AccountType getAccountType() {
-        if (this.currentUser != null) {
-            return this.currentUser.getAccountType();
-        }
-
-        return null;
+    public Account getCurrentUser() {
+        return this.currentUser;
     }
 
     public boolean isUserLoggedIn() {

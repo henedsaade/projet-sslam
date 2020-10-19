@@ -16,6 +16,8 @@ public abstract class Account extends Object {
 
     public abstract AccountType getAccountType();
 
+    public abstract String getRole();
+
     /* Use this method ONLY for sign up!
      * */
     public static Account accountFromType(String userName, String email, String uid, AccountType accountType) {

@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EmployeeAccount extends Account {
-    public static final AccountType accountType = AccountType.EMPLOYEE;
     private String userName;
     private String email;
     private String uid;
@@ -36,6 +35,8 @@ public class EmployeeAccount extends Account {
     public AccountType getAccountType() {
         return AccountType.EMPLOYEE;
     }
+
+    public String getRole() { return "employé"; }
 
     public String toString() {
         return "Username: " + userName + ", Email: " + email + ", " + "Account Type: EMPLOYEE";

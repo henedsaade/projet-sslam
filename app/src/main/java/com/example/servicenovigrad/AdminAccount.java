@@ -35,6 +35,8 @@ public class AdminAccount extends Account {
         return AccountType.ADMIN;
     }
 
+    public String getRole() { return "admin"; }
+
     public String toString() {
         return "Username: " + userName + ", Email: " + email + ", " + "Account Type: ADMIN";
     }

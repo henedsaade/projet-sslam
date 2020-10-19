@@ -37,6 +37,8 @@ public class ClientAccount extends Account {
         return AccountType.CLIENT;
     }
 
+    public String getRole() { return "client"; }
+
     public String toString() {
         return "Username: " + userName + ", Email: " + email + ", " + "Account Type: CLIENT";
     }
