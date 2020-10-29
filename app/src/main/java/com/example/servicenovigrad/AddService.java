@@ -23,13 +23,13 @@ public class AddService extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (serviceType.getText().toString() == "Permis de conduire"){
+                if (serviceType.getText().toString().contains("permis") || serviceType.getText().toString().contains("conduire") ){
                     service= new Service(ServiceType.DRIVER_LICENSE);
                 }
-                else if (serviceType.getText().toString() == "Carte de sante") {
+                else if (serviceType.getText().toString().contains("carte") || serviceType.getText().toString().contains("sante") ) {
                     service = new Service(ServiceType.HEALTH_CARD);
                 }
-                else if (serviceType.getText().toString() == "Pièce d'indentité avec photo") {
+                else if (serviceType.getText().toString().contains("identite") || serviceType.getText().toString().contains("photo") || serviceType.getText().toString().contains("piece") ) {
                     service = new Service(ServiceType.ID_WITH_PICTURE);
                 }
                 else {

@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView errors;
     private FbWrapper fb = FbWrapper.getInstance();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         loginButton = (Button) findViewById(R.id.login);
         signupButton = (Button) findViewById(R.id.signup);
         errors = (TextView) findViewById(R.id.errorMessages);
+
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
