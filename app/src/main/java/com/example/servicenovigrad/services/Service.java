@@ -14,18 +14,18 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import java.util.HashMap;
 
 public class Service {
-    private static final String TAG = "[SERVICE]";
-    public static final String firestoreServicesRoute = "services/";
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();;
+    protected static final String TAG = "[SERVICE]";
+    protected static final String firestoreServicesRoute = "services/";
+    protected FirebaseFirestore db = FirebaseFirestore.getInstance();;
 
-    private String[] formFields;
-    private String[] documentsNames;
-    private String serviceName;
+    protected String[] formFields;
+    protected String[] documentsNames;
+    protected String serviceName;
 
-    private String uid;
+    protected String uid;
 
     // constructor for a service stored in firestore
-    public Service(String serviceUid) throws FirebaseFirestoreException {
+    public Service(String serviceUid) {
         this.uid = serviceUid;
 
         // fetch service blueprint from uid
@@ -79,14 +79,14 @@ public class Service {
     }
 
     public String[] getFormFields() {
-        return this.formFields;
+        return formFields;
     }
 
     public String[] getDocumentsNames() {
-        return this.documentsNames;
+        return documentsNames;
     }
 
     public String getServiceName() {
-        return this.serviceName;
+        return serviceName;
     }
 }

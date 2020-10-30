@@ -13,7 +13,8 @@ import android.view.View;
 import com.example.servicenovigrad.R;
 
 public class DocumentUploadActivity extends AppCompatActivity {
-
+    // for future project assignment
+    // Image upload activity tutorial at https://www.geeksforgeeks.org/android-how-to-upload-an-image-on-firebase-storage/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
