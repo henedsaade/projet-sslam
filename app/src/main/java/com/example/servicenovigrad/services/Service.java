@@ -1,6 +1,4 @@
-package com.example.servicenovigrad;
-
-import java.util.List;
+package com.example.servicenovigrad.services;
 
 public class Service {
 

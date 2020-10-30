@@ -1,4 +1,4 @@
-package com.example.servicenovigrad;
+package com.example.servicenovigrad.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +12,9 @@ import android.text.TextUtils;
 import android.util.Patterns;
 import android.widget.TextView;
 
+import com.example.servicenovigrad.accounts.AccountType;
+import com.example.servicenovigrad.accounts.FbWrapper;
+import com.example.servicenovigrad.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

@@ -1,4 +1,4 @@
-package com.example.servicenovigrad;
+package com.example.servicenovigrad.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.servicenovigrad.R;
+import com.example.servicenovigrad.services.Service;
+import com.example.servicenovigrad.services.ServiceType;
 
 public class AddServiceActivity extends AppCompatActivity {
 
