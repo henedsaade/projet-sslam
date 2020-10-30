@@ -10,8 +10,6 @@ import com.example.servicenovigrad.accounts.AdminAccount;
 import com.example.servicenovigrad.accounts.ClientAccount;
 import com.example.servicenovigrad.accounts.EmployeeAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,7 +18,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Map;
 
@@ -43,13 +41,25 @@ public class FbWrapper {
         return mInstance;
     }
 
+    public Task<QuerySnapshot> getCollection(String collectionPath) {
+        return db.collection(collectionPath).get();
+    }
+
+    public Task<DocumentSnapshot> getDocument(String documentPath) {
+        return db.document(documentPath).get();
+    }
+
+    public Task<Void> setDocument(String documentPath, Map<String, Object> dataToSave) {
+        return db.document(documentPath).set(dataToSave);
+    }
+
     public Task<DocumentSnapshot> initiateUser() {
         // Sign in success, update UI with the signed-in user's information
         final FirebaseUser fUser = auth.getCurrentUser();
 
         if (fUser != null) {
             // Get instance
-            return db.document(Account.firestoreUsersRoute + fUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            return getDocument(Account.firestoreUsersRoute + fUser.getUid()).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if (task.isSuccessful()) {
@@ -92,22 +102,6 @@ public class FbWrapper {
         } else {
             return null;
         }
-    }
-
-    public Task<>
-
-    public Task<Void> setDocument(String documentPath, Map<String, Object> dataToSave) throws FirebaseFirestoreException {
-        return db.document(documentPath).set(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Log.d(TAG, "Document has been saved!");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.w(TAG, "Document was not saved!");
-            }
-        });
     }
 
     public Task<AuthResult> handleSignUp(final String userName, final String firstName, final String lastName, final String email, String password, final AccountType accountType) {

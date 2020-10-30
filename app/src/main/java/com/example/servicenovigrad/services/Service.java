@@ -4,19 +4,18 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.servicenovigrad.accounts.AccountType;
 import com.example.servicenovigrad.fb.FbWrapper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 
 public class Service {
     protected static final String TAG = "[SERVICE]";
     protected static final String firestoreServicesRoute = "services/";
-    protected FirebaseFirestore db = FirebaseFirestore.getInstance();;
 
     protected String[] formFields;
     protected String[] documentsNames;
@@ -29,7 +28,7 @@ public class Service {
         this.uid = serviceUid;
 
         // fetch service blueprint from uid
-        db.document(firestoreServicesRoute + uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        FbWrapper.getInstance().getDocument(firestoreServicesRoute + uid).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -61,20 +60,45 @@ public class Service {
         this.documentsNames = documentsNames;
     }
 
-    // Method to save the service blueprint to firebase.
-    public void saveServiceBlueprint() throws Exception {
-        if (formFields != null && documentsNames != null && serviceName != null) {
+    public static Task<QuerySnapshot> getAllServices() {
+        return FbWrapper.getInstance().getCollection(firestoreServicesRoute);
+
+//        Call this method like this in an activity:
+
+//        Service.getAllServices().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//              @Override
+//              public void onSuccess(QuerySnapshot documentSnapshots) {
+//                  if (documentSnapshots.isEmpty()) {
+//                      Log.d(TAG, "onSuccess: LIST EMPTY");
+//                      return;
+//                  } else {
+//                      // Convert the whole Query Snapshot to a list
+//                      // of objects directly! No need to fetch each
+//                      // document.
+//                      List<Service> services = documentSnapshots.toObjects(Service.class);
+//
+//                      // Add all to your list
+//                      mArrayList.addAll(types);
+//                      Log.d(TAG, "onSuccess: " + mArrayList);
+//                  }
+//              })
+//                      .addOnFailureListener(new OnFailureListener() {
+//                  @Override
+//                  public void onFailure(@NonNull Exception e) {
+//                      Toast.makeText(getApplicationContext(), "Error getting data!!!", Toast.LENGTH_LONG).show();
+//                  }
+//              });
+    }
+
+    // Method to create a new service
+    public void saveServiceBlueprint() {
+        if (FbWrapper.getInstance().getCurrentUser().getAccountType() == AccountType.ADMIN && formFields != null && documentsNames != null && serviceName != null) {
             HashMap<String, Object> dataToSave = new HashMap<String, Object>();
             dataToSave.put("formFields", formFields);
             dataToSave.put("documentsNames", documentsNames);
             dataToSave.put("serviceName", serviceName);
 
-            try {
-                FbWrapper.getInstance().setDocument(firestoreServicesRoute, dataToSave);
-            } catch (FirebaseFirestoreException e) {
-                Log.d(TAG, e.getMessage());
-                throw new Exception("Error while trying to save the service to firestore.");
-            }
+            FbWrapper.getInstance().setDocument(firestoreServicesRoute, dataToSave);
         }
     }
 
