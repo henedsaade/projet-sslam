@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.example.servicenovigrad.accounts.FbWrapper;
+import com.example.servicenovigrad.fb.FbWrapper;
 import com.example.servicenovigrad.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

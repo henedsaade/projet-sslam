@@ -1,9 +1,14 @@
-package com.example.servicenovigrad.accounts;
+package com.example.servicenovigrad.fb;
 
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.servicenovigrad.accounts.Account;
+import com.example.servicenovigrad.accounts.AccountType;
+import com.example.servicenovigrad.accounts.AdminAccount;
+import com.example.servicenovigrad.accounts.ClientAccount;
+import com.example.servicenovigrad.accounts.EmployeeAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -88,6 +93,8 @@ public class FbWrapper {
             return null;
         }
     }
+
+    public Task<>
 
     public Task<Void> setDocument(String documentPath, Map<String, Object> dataToSave) throws FirebaseFirestoreException {
         return db.document(documentPath).set(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {

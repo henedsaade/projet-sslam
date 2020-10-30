@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.servicenovigrad.accounts.FbWrapper;
+import com.example.servicenovigrad.fb.FbWrapper;
 import com.example.servicenovigrad.R;
 
 import androidx.appcompat.app.AppCompatActivity;

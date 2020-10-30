@@ -12,7 +12,7 @@ import android.view.View;
 
 import com.example.servicenovigrad.R;
 
-public class DocumentUpload extends AppCompatActivity {
+public class DocumentUploadActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

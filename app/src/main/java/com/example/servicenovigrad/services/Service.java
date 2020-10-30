@@ -1,64 +1,85 @@
 package com.example.servicenovigrad.services;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import com.example.servicenovigrad.fb.FbWrapper;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+
+import java.util.HashMap;
+
 public class Service {
+    private static final String TAG = "[SERVICE]";
+    public static final String firestoreServicesRoute = "services/";
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();;
 
-    private ServiceType type;
-    private String [] informations;
-    private String [] document;
+    private String[] formFields;
+    private String[] documentsNames;
+    private String serviceName;
 
-    public Service(ServiceType aType){
-        this.type = aType;
+    private String uid;
+    private HashMap<String, Document> documents;
+    private Form form;
 
-        if(type == ServiceType.DRIVER_LICENSE){
-            informations = new String [5];
-            informations[0] = ("prénom");
-            informations[1] = ("nom");
-            informations[2] = ("date de naissance");
-            informations[3] = ("addresse");
-            informations[4] = ("type de permis");
+    // constructor for a service stored in firestore
+    public Service(String serviceUid) throws FirebaseFirestoreException {
+        this.uid = serviceUid;
+        fetchServiceInformations();
+    }
 
-            document = new String[1];
-            document [0] = "preuve de domicile ( une image d'un relevé bancaire ou d'une facture d'électricité indiquant l'adresse)";
+    public Service(String serviceName, String[] formFields, String[] documentsNames) {
+        this.serviceName = serviceName;
+        this.formFields = formFields;
+        this.documentsNames = documentsNames;
+
+        this.form = new Form(formFields);
+        this.documents =
+    }
+
+    public void initializeForm()
+
+    // Method to save the service blueprint to firebase.
+    public void saveServiceInformations() throws Exception {
+        HashMap<String, Object> dataToSave = new HashMap<String, Object>();
+        dataToSave.put("formFields", formFields);
+        dataToSave.put("documentsNames", documentsNames);
+        dataToSave.put("serviceName", serviceName);
+
+        try {
+            FbWrapper.getInstance().setDocument(firestoreServicesRoute, dataToSave);
+        } catch (FirebaseFirestoreException e) {
+            Log.d(TAG, e.getMessage());
+            throw new Exception("Error while trying to save the service to firestore.");
         }
-        else {
-            informations = new String [4];
-            informations[0] = ("prénom");
-            informations[1] = ("nom");
-            informations[2] = ("date de naissance");
-            informations[3] = ("addresse");
+    }
 
-            document = new String[2];
-            document [0] = "preuve de domicile ( une image d'un relevé bancaire ou d'une facture d'électricité indiquant l'adresse)";
-            if(type == ServiceType.HEALTH_CARD) {
-                document [1] = "preuve de statut (Une image d'une carte de résidence permanente au Canada ou d'un passeport Canadien)";
+    public Task<DocumentSnapshot> fetchServiceInformations() throws FirebaseFirestoreException {
+        return db.document(firestoreServicesRoute + uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+
+                    if (document.exists()) {
+                        formFields = (String[]) document.get("formFields");
+                        documentsNames = (String[]) document.get("documentsNames");
+                        serviceName = (String) document.get("serviceName");
+
+                    } else {
+                        // failed to find service in firestore
+                        Log.d(TAG, "No such service");
+                    }
+                } else {
+                    // async task failed
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
             }
-            else if (type == ServiceType.ID_WITH_PICTURE) {
-                document [1] = "une photo du client";
-            }
-        }
-
-
+        });
     }
 
-    public ServiceType getServiceType () {
-        return this.type;
-    }
-
-    public String getAllInformations () {
-        String res = "";
-        for (int i = 0; i < informations.length; i++) {
-            res = res + "/n" + informations[i];
-        }
-
-        return res;
-    }
-
-    public String getAllDocuments () {
-        String res = "";
-        for (int i = 0 ; i < document.length ; i++) {
-            res= res+ "/n" + document [i];
-        }
-
-        return res;
-    }
 }
