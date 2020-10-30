@@ -27,16 +27,33 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class WelcomePage extends AppCompatActivity {
     private TextView welcomeMessage;
+    private Button signoutButton;
+    private FbWrapper fb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        fb = FbWrapper.getInstance();
         setContentView(R.layout.activity_welcome_page);
-        welcomeMessage= (TextView) findViewById(R.id.welcome);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user!=null){
-            prenom=user.getDisplayName();
-        }
-        welcomeMessage.setText("Bienvenue "+ prenom);
 
+        signoutButton = (Button) findViewById(R.id.signout);
+        signoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fb.handleSignOut();
+                openSignInPage();
+            }
+        });
+
+        String prenom = fb.getCurrentUser().getFirstName();
+        String role = fb.getCurrentUser().getRole();
+
+        welcomeMessage= (TextView) findViewById(R.id.welcome);
+        welcomeMessage.setText("Bienvenue, " + prenom + ". Vous êtes connecté sous un compte " + role + ".");
+    }
+
+    public void openSignInPage() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

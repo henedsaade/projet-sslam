@@ -9,13 +9,13 @@
 
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/courriel"
         android:layout_width="232dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150dp"
-        android:hint="Nom d'utilisateur"
+        android:hint="Addresse Courriel"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
         android:textColorHint="@color/black"
