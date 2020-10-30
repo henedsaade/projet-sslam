@@ -1,6 +1,5 @@
 package com.example.servicenovigrad;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -11,7 +10,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -20,22 +18,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.Map;
-import java.util.concurrent.Executor;
-
-//public class MyProperties {
-//    private static MyProperties mInstance= null;
-//
-//    public int someValueIWantToKeep;
-//
-//    protected MyProperties(){}
-//
-//    public static synchronized MyProperties getInstance() {
-//        if(null == mInstance){
-//            mInstance = new MyProperties();
-//        }
-//        return mInstance;
-//    }
-//}
 
 public class FbWrapper {
     private static FbWrapper mInstance = null;

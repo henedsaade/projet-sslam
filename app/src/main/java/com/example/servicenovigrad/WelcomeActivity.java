@@ -25,7 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class WelcomePage extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity {
     private TextView welcomeMessage;
     private Button signoutButton;
     private FbWrapper fb;

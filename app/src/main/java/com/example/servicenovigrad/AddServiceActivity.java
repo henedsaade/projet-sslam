@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class AddService extends AppCompatActivity {
+public class AddServiceActivity extends AppCompatActivity {
 
     private Button add;
     private EditText serviceType;
