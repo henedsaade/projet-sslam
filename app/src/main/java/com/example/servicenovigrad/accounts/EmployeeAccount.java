@@ -38,11 +38,7 @@ public class EmployeeAccount extends Account {
         dataToSave.put("role", "employee");
         String documentPath = firestoreUsersRoute + this.uid;
 
-        try {
-            fb.setDocument(documentPath, dataToSave);
-        } catch (FirebaseFirestoreException e) {
-            Log.d(TAG, e.getMessage());
-        }
+        fb.setDocument(documentPath, dataToSave);
     }
 
 }

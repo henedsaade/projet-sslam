@@ -9,6 +9,12 @@
     android:background="@drawable/welcome"
     tools:context=".activities.WelcomeActivity">
 
+    <Button
+        android:id="@+id/signout"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:text="Déconnexion" />
+
     <TextView
         android:id="@+id/welcome"
         android:layout_width="match_parent"
@@ -27,14 +33,20 @@
         app:autoSizeTextType="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" /><![CDATA[
 
-    <Button
-        android:id="@+id/signout"
-        android:layout_width="match_parent"
-        android:layout_height="59dp"
-        android:text="Déconnexion" />
+
+
+
+
+
+
+
+
     />
 
 
+
+
+]]>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

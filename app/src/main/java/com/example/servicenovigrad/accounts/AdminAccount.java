@@ -37,10 +37,6 @@ public class AdminAccount extends Account {
         dataToSave.put("role", "admin");
         String documentPath = firestoreUsersRoute + this.uid;
 
-        try {
-            fb.setDocument(documentPath, dataToSave);
-        } catch (FirebaseFirestoreException e) {
-            Log.d(TAG, e.getMessage());
-        }
+        fb.setDocument(documentPath, dataToSave);
     }
 }
