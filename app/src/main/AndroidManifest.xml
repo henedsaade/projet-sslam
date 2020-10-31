@@ -9,16 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddService"></activity>
+        <activity
+            android:name=".activities.DocumentUploadActivity"
+            android:label="@string/title_activity_document_upload"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".activities.AddServiceActivity" />
         <activity android:name=".AdminPage" />
         <activity
-            android:name=".WelcomePage"
+            android:name=".activities.WelcomeActivity"
             android:label="@string/title_activity_welcome_page"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".SignUpPage2"
+            android:name=".activities.SignUpActivity"
             android:label="SignUpPage2" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

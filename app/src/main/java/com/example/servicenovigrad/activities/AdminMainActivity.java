@@ -1,4 +1,4 @@
-package com.example.servicenovigrad;
+package com.example.servicenovigrad.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class AdminOptions extends AppCompatActivity {
+import com.example.servicenovigrad.R;
+
+public class AdminMainActivity extends AppCompatActivity {
     private  Button addService;
     private Button setService;
     private Button deleteService;
@@ -30,7 +32,7 @@ public class AdminOptions extends AppCompatActivity {
     }
 
     private void openAddService() {
-        Intent intent = new Intent(this,AddService.class);
+        Intent intent = new Intent(this, AddServiceActivity.class);
         startActivity(intent);
     }
 }

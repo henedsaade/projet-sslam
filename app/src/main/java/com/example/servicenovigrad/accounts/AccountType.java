@@ -1,4 +1,4 @@
-package com.example.servicenovigrad;
+package com.example.servicenovigrad.accounts;
 
 public enum AccountType {
     ADMIN,

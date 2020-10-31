@@ -1,16 +1,17 @@
-package com.example.servicenovigrad;
+package com.example.servicenovigrad.accounts;
 
 import android.util.Log;
 
+
+import com.example.servicenovigrad.fb.FbWrapper;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.HashMap;
 import java.util.Map;
 
-
-public class ClientAccount extends Account {
-    public ClientAccount(String userName, String firstName, String lastName, String email, String uid) {
+public class EmployeeAccount extends Account {
+    public EmployeeAccount(String userName, String firstName, String lastName, String email, String uid) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -19,13 +20,13 @@ public class ClientAccount extends Account {
     }
 
     public AccountType getAccountType() {
-        return AccountType.CLIENT;
+        return AccountType.EMPLOYEE;
     }
 
-    public String getRole() { return "client"; }
+    public String getRole() { return "employé"; }
 
     public String toString() {
-        return "Username: " + userName + ", Email: " + email + ", " + "Account Type: CLIENT";
+        return "Username: " + userName + ", Email: " + email + ", " + "Account Type: EMPLOYEE";
     }
 
     public void saveAccountToFirestore(FbWrapper fb, FieldValue timestamp) {
@@ -34,22 +35,10 @@ public class ClientAccount extends Account {
         dataToSave.put("createdAt", timestamp);
         dataToSave.put("firstName", this.firstName);
         dataToSave.put("lastName", this.lastName);
-        dataToSave.put("role", "client");
+        dataToSave.put("role", "employee");
         String documentPath = firestoreUsersRoute + this.uid;
 
-        try {
-            fb.setDocument(documentPath, dataToSave);
-        } catch (FirebaseFirestoreException e) {
-            Log.d(TAG, e.getMessage());
-        }
+        fb.setDocument(documentPath, dataToSave);
     }
 
 }
-
-
-
-
-
-
-
-

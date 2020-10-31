@@ -1,4 +1,4 @@
-package com.example.servicenovigrad;
+package com.example.servicenovigrad.services;
 
 public enum ServiceType {
     DRIVER_LICENSE,
