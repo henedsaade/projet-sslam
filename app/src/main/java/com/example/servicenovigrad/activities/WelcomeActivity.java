@@ -33,6 +33,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private TextView welcomeMessage;
     private Button signoutButton;
     private FbWrapper fb;
+    private Button continueButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,13 @@ public class WelcomeActivity extends AppCompatActivity {
                 openSignInPage();
             }
         });
+        continueButton = (Button) findViewById(R.id.go);
+        continueButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openServicePage();
+            }
+        });
 
         String prenom = fb.getCurrentUser().getFirstName();
         String role = fb.getCurrentUser().getRole();
@@ -58,6 +66,10 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public void openSignInPage() {
         Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+    public void openServicePage() {
+        Intent intent = new Intent(this,AddServiceActivity.class);
         startActivity(intent);
     }
 }

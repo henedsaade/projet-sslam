@@ -13,6 +13,7 @@ public class AdminMainActivity extends AppCompatActivity {
     private  Button addService;
     private Button setService;
     private Button deleteService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -33,20 +33,16 @@
         app:autoSizeTextType="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" /><![CDATA[
+        app:layout_constraintTop_toTopOf="parent" />
 
-
-
-
-
-
-
-
-
-    />
-
-
-
-
-]]>
+    <Button
+        android:id="@+id/go"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Continue"
+        android:layout_gravity="center"
+        android:background="@drawable/shape"
+        android:layout_marginTop="300dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="24sp"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
