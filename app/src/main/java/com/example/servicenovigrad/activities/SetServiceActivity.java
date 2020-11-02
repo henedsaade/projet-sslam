@@ -3,12 +3,14 @@ package com.example.servicenovigrad.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.servicenovigrad.R;
 import com.example.servicenovigrad.fb.FbWrapper;
@@ -33,6 +35,8 @@ public class SetServiceActivity extends AppCompatActivity {
     private Button modifier2;
     private Button modifier3;
 
+    static String serviceName;
+
     protected static final String firestoreServicesRoute = "services/";
 
 
@@ -54,14 +58,46 @@ public class SetServiceActivity extends AppCompatActivity {
         modifier1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                serviceName = "carte de santé";
+                if(firstService.getText().toString().equals("Carte de santé")){
+                    openModificationsPage();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),"Ce service n'existe pas, impossible de modifier",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
+        modifier2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                serviceName = "permis de conduire";
+                if(secondService.getText().toString().equals("Permis de conduire")){
+                    openModificationsPage();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),"Ce service n'existe pas, impossible de modifier",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        modifier3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                serviceName = "pièce d'identité avec photo";
+                if(thirdService.getText().toString().equals("Pièce de d'identité avec photo")){
+                    openModificationsPage();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),"Ce service n'existe pas, impossible de modifier",Toast.LENGTH_LONG).show();
+                }
             }
         });
 
     }
 
     public void loadServices(){
-        FbWrapper.getInstance().getDocument(firestoreServicesRoute +("carteDeSanté"))
+        FbWrapper.getInstance().getDocument(firestoreServicesRoute +"carteDeSanté")
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -98,6 +134,11 @@ public class SetServiceActivity extends AppCompatActivity {
                             thirdService.setText("Pas de service d'ID avec photo");
                     }
                 });
+    }
+
+    private void openModificationsPage() {
+        Intent intent = new Intent(this,Modifications.class);
+        startActivity(intent);
     }
 
 

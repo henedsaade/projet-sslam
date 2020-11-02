@@ -28,11 +28,20 @@ public class AdminActivity extends AppCompatActivity {
                 openAddPage();
             }
         });
+
         set = (Button) findViewById(R.id.setService);
         set.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openSetPage();
+            }
+        });
+
+        delete = (Button) findViewById( (R.id.deleteService));
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDeletePage();
             }
         });
 
@@ -45,6 +54,11 @@ public class AdminActivity extends AppCompatActivity {
 
     private  void openSetPage() {
         Intent intent = new Intent( this, SetServiceActivity.class);
+        startActivity(intent);
+    }
+
+    private void openDeletePage () {
+        Intent intent =  new Intent(this,DeleteService.class);
         startActivity(intent);
     }
 }

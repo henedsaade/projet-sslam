@@ -53,6 +53,10 @@ public class FbWrapper {
         return db.document(documentPath).set(dataToSave);
     }
 
+    public Task<Void> deleteDocument(String documentPath) {
+        return db.document(documentPath).delete();
+    }
+
     public Task<DocumentSnapshot> initiateUser() {
         // Sign in success, update UI with the signed-in user's information
         final FirebaseUser fUser = auth.getCurrentUser();
