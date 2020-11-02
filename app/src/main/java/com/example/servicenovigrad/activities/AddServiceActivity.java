@@ -2,6 +2,7 @@ package com.example.servicenovigrad.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -46,20 +47,28 @@ public class AddServiceActivity extends AppCompatActivity {
                 if( serviceType.getText().toString().contains("conduire")){
                     addDriverLicense();
                     Toast.makeText(getApplicationContext(),"Le service a été ajouté",Toast.LENGTH_SHORT).show();
+                    openOptionPage();
                 }
                 else if(serviceType.getText().toString().contains("sante") || serviceType.getText().toString().contains("santé")){
                     addHealthCard();
                     Toast.makeText(getApplicationContext(),"Le service a été ajouté",Toast.LENGTH_SHORT).show();
+                    openOptionPage();
                 }
                 else if(serviceType.getText().toString().contains("identite") || serviceType.getText().toString().contains("identité")){
                     addID();
                     Toast.makeText(getApplicationContext(),"Le service a été ajouté",Toast.LENGTH_SHORT).show();
+                    openOptionPage();
                 }
                 else {
                     error();
                 }
             }
         });
+    }
+
+    private void openOptionPage() {
+        Intent intent = new Intent( this, AdminActivity.class );
+        startActivity(intent);
     }
 
     public void addDriverLicense(){
@@ -84,6 +93,6 @@ public class AddServiceActivity extends AppCompatActivity {
         service.saveServiceBlueprint();
     }
     private void error() {
-        Toast.makeText(getApplicationContext(),"Choisir 'permis de conduire' ou 'carte de sante' ou 'pièce d'identité avec photo' ",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),"Erreur! Écrire 'permis de conduire' ou 'carte de santé' ou 'pièce d'identité avec photo' ",Toast.LENGTH_LONG).show();
     }
 }

@@ -69,7 +69,7 @@ public class WelcomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void openServicePage() {
-        Intent intent = new Intent(this,AddServiceActivity.class);
+        Intent intent = new Intent(this,AdminActivity.class);
         startActivity(intent);
     }
 }
