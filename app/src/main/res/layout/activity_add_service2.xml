@@ -25,9 +25,11 @@
         android:id="@+id/add"
         android:layout_width="183dp"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/formulaire"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="208dp"
+        android:layout_marginTop="81dp"
+        android:layout_marginBottom="179dp"
         android:background="@drawable/shape"
         android:fontFamily="sans-serif-medium"
         android:text="Ajouter"
@@ -36,16 +38,52 @@
 
     <EditText
         android:id="@+id/serviceType"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="148dp"
+        android:layout_marginEnd="3dp"
+        android:ems="10"
+        android:hint="Type de Service"
+        android:inputType="textPersonName"
+        android:textAlignment="textStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <EditText
+        android:id="@+id/formulaire"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="281dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="364dp"
         android:ems="10"
+        android:hint='Données du formulaire (séparés par ",")'
         android:inputType="textPersonName"
-        android:hint="Type de Service"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <EditText
+        android:id="@+id/documents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/serviceType"
+        android:layout_alignStart="@+id/formulaire"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="57dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint='Documents à fournir (séparés par ",")'
+        android:inputType="textPersonName"
+        android:rotationX="-2"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
 
 </RelativeLayout>

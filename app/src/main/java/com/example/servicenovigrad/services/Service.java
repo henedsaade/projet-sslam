@@ -163,4 +163,19 @@ public class Service {
     public String getServiceName() {
         return serviceName;
     }
+
+    public String toString () {
+        String name = this.serviceName;
+        String formFields = "Données du formualire : ";
+        for( String info : this.formFields) {
+            formFields = formFields + " " + info;
+        }
+        String documentsNames = "Documents requis : ";
+        for (String info : this.documentsNames) {
+            documentsNames = documentsNames + " " + info;
+        }
+
+        return "Nom du service : " + name +"\n" + formFields + "\n" + documentsNames ;
+
+    }
 }

@@ -176,13 +176,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 //    public boolean checkValidLogin() {
-////        String utilisateurS = utilisateur.getText().toString();
-////        String passeS = motDePasse.getText().toString();
-////        String utilisateurCorrect="admin";
-////        String passeCorrect="123admin456";
-////        boolean validUser=utilisateurS.equals(utilisateurCorrect);
-////        boolean validPass=passeS.equals(passeCorrect);
-////        return validUser && validPass;
+//        String utilisateurS = utilisateur.getText().toString();
+//        String passeS = motDePasse.getText().toString();
+//        String utilisateurCorrect="admin";
+//        String passeCorrect="123admin456";
+//        boolean validUser=utilisateurS.equals(utilisateurCorrect);
+//        boolean validPass=passeS.equals(passeCorrect);
+//        return validUser && validPass;
 //    }
 
 }

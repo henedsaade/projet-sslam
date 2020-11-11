@@ -25,40 +25,41 @@ public class AddServiceActivity extends AppCompatActivity {
     private List<String> formFields;
     private List <String> documentsNames;
     private String serviceName;
+    private EditText documents;
+    private EditText formulaire;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_service2);
         add = (Button) findViewById(R.id.add);
         serviceType = (EditText) findViewById(R.id.serviceType);
+        documents = (EditText) findViewById(R.id.documents);
+        formulaire = (EditText) findViewById(R.id.formulaire);
 
-        formFields= new ArrayList<>();
-        formFields.add("Nom");
-        formFields.add("Prénom");
-        formFields.add("Date de naissance");
-        formFields.add("Adresse");
+        formFields = new ArrayList<>();
 
         documentsNames = new ArrayList<>();
-        formFields.add("Preuve de domicile (Une image de relevé bancaire ou une facture d'électricité indiquant l'adresse)");
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if( serviceType.getText().toString().contains("conduire")){
-                    addDriverLicense();
+                if((serviceType.getText().toString().length() > 1) & (formulaire.getText().toString().length() > 1) & (documents.getText().length() > 1)) {
+                    serviceName = serviceType.getText().toString().trim();
+
+                    String[] formsTab = formulaire.getText().toString().split(",");
+                    for (int i = 0; i < formsTab.length; i++) {
+                        formFields.add(formsTab[i].trim());
+                    }
+                    String[] documentsTab = documents.getText().toString().split(",");
+                    for (int i = 0; i < documentsTab.length; i++) {
+                        documentsNames.add(documentsTab[i].trim());
+                    }
                     Toast.makeText(getApplicationContext(),"Le service a été ajouté",Toast.LENGTH_SHORT).show();
+                    service = new Service(serviceName,formFields,documentsNames);
+                    service.saveServiceBlueprint();
                     openOptionPage();
                 }
-                else if(serviceType.getText().toString().contains("sante") || serviceType.getText().toString().contains("santé")){
-                    addHealthCard();
-                    Toast.makeText(getApplicationContext(),"Le service a été ajouté",Toast.LENGTH_SHORT).show();
-                    openOptionPage();
-                }
-                else if(serviceType.getText().toString().contains("identite") || serviceType.getText().toString().contains("identité")){
-                    addID();
-                    Toast.makeText(getApplicationContext(),"Le service a été ajouté",Toast.LENGTH_SHORT).show();
-                    openOptionPage();
-                }
+
                 else {
                     error();
                 }
@@ -66,33 +67,11 @@ public class AddServiceActivity extends AppCompatActivity {
         });
     }
 
-    private void openOptionPage() {
-        Intent intent = new Intent( this, AdminActivity.class );
-        startActivity(intent);
-    }
-
-    public void addDriverLicense(){
-        serviceName="Permis de conduire";
-        formFields.add("Type de permis");
-        Service service = new Service(serviceName,formFields,documentsNames);
-        service.saveServiceBlueprint();
-
-    }
-
-    public void  addHealthCard() {
-        serviceName= "Carte de santé";
-        documentsNames.add("Preuve de statut (Image d'une carte de résident permanent ou d'un passeport canadien)");
-        Service service = new Service(serviceName,formFields,documentsNames);
-        service.saveServiceBlueprint();
-    }
-
-    public void addID(){
-        serviceName="Pièce d'identité avec photo";
-        documentsNames.add("Une photo");
-        Service service = new Service(serviceName,formFields,documentsNames);
-        service.saveServiceBlueprint();
-    }
-    private void error() {
-        Toast.makeText(getApplicationContext(),"Erreur! Écrire 'permis de conduire' ou 'carte de santé' ou 'pièce d'identité avec photo' ",Toast.LENGTH_LONG).show();
-    }
+        private void openOptionPage () {
+            Intent intent = new Intent(this, AdminActivity.class);
+            startActivity(intent);
+        }
+        private void error () {
+            Toast.makeText(getApplicationContext(), "Vous devez remplir tous les champs", Toast.LENGTH_LONG).show();
+        }
 }

@@ -1,146 +1,187 @@
 package com.example.servicenovigrad.activities;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.servicenovigrad.R;
 import com.example.servicenovigrad.fb.FbWrapper;
+import com.example.servicenovigrad.services.Document;
 import com.example.servicenovigrad.services.Service;
-import com.google.android.gms.common.config.GservicesValue;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SetServiceActivity extends AppCompatActivity {
-
-    private TextView firstService;
-    private TextView secondService;
-    private TextView thirdService;
-
-    private Button modifier1;
-    private Button modifier2;
-    private Button modifier3;
-
-    static String serviceName;
-
-    protected static final String firestoreServicesRoute = "services/";
-
+    ListView listViewServices;
+    ArrayList<String> services;
+    FbWrapper fb = FbWrapper.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_service);
+        listViewServices = (ListView) findViewById(R.id.listview);
 
-        firstService = (TextView) findViewById(R.id.firstService);
-        secondService =  (TextView) findViewById(R.id.secondService);
-        thirdService = (TextView) findViewById(R.id.thirdService);
+        services = new ArrayList<>();
 
-        modifier1 = (Button) findViewById(R.id.button);
-        modifier2 = (Button) findViewById(R.id.button2);
-        modifier3 = (Button) findViewById(R.id.button3);
-
-        loadServices();
-
-        modifier1.setOnClickListener(new View.OnClickListener() {
+        listViewServices.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onClick(View v) {
-                serviceName = "carte de santé";
-                if(firstService.getText().toString().equals("Carte de santé")){
-                    openModificationsPage();
-                }
-                else {
-                    Toast.makeText(getApplicationContext(),"Ce service n'existe pas, impossible de modifier",Toast.LENGTH_LONG).show();
-                }
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                String serviceName = services.get(position);
+                showDialogUpdate(serviceName);
+                return true;
             }
         });
 
-        modifier2.setOnClickListener(new View.OnClickListener() {
+        fb.getCollection("services").addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onClick(View v) {
-                serviceName = "permis de conduire";
-                if(secondService.getText().toString().equals("Permis de conduire")){
-                    openModificationsPage();
-                }
-                else {
-                    Toast.makeText(getApplicationContext(),"Ce service n'existe pas, impossible de modifier",Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
-        modifier3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                serviceName = "pièce d'identité avec photo";
-                if(thirdService.getText().toString().equals("Pièce de d'identité avec photo")){
-                    openModificationsPage();
-                }
-                else {
-                    Toast.makeText(getApplicationContext(),"Ce service n'existe pas, impossible de modifier",Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
-    }
-
-    public void loadServices(){
-        FbWrapper.getInstance().getDocument(firestoreServicesRoute +"carteDeSanté")
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if(documentSnapshot.exists()){
-                    firstService.setText("Carte de santé");
-                }
-                else {
-                    firstService.setText("Pas de service de carte de santé");
-                }
-            }
-        });
-
-
-        FbWrapper.getInstance().getDocument(firestoreServicesRoute + "permisDeConduire" )
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                       if(documentSnapshot.exists()){
-                           secondService.setText("Permis de conduire");
-                       }
-                       else
-                           secondService.setText("Pas de service de permis de conduire");
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()) {
+                    services.clear();
+                    for(QueryDocumentSnapshot doc : task.getResult()) {
+                        String name = (String) doc.get("serviceName");
+                        List<String> myForms = (List<String>) doc.get("formFields");
+                        List<String> myDocs = (List<String>) doc.get("documentsNames");
+                        Service myService = new Service(name,myForms,myDocs);
+                        services.add(name );
+                        Log.d("SetService ","getting document is sucessfull " + "=>" + name);
                     }
-                });
+                    ListAdapter adapter = new ArrayAdapter <> (SetServiceActivity.this,
+                            R.layout.activity_list_service,services);
+                    listViewServices.setAdapter(adapter);
+                }
 
-        FbWrapper.getInstance().getDocument(firestoreServicesRoute+ "pièceD'identitéAvecPhoto")
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()) {
-                            thirdService.setText("Pièce de d'identité avec photo");
-                        }
-                        else
-                            thirdService.setText("Pas de service d'ID avec photo");
-                    }
-                });
+                else
+                    Log.d("SetService","error getting document: ",task.getException());
+            }
+        });
+
     }
 
-    private void openModificationsPage() {
-        Intent intent = new Intent(this,Modifications.class);
-        startActivity(intent);
+//    public void display() {
+//
+//        fb.getCollection("services").addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if(task.isSuccessful()) {
+//                    for(QueryDocumentSnapshot doc : task.getResult()) {
+//                        String name = (String) doc.get("serviceName");
+//                        List<String> myForms = (List<String>) doc.get("formFields");
+//                        List<String> myDocs = (List<String>) doc.get("documentsNames");
+//                        Service myService = new Service(name,myForms,myDocs);
+//                        services.add(name );
+//                        Log.d("SetService ","getting document is sucessfull " + "=>" + name);
+//                    }
+//                    ListAdapter adapter = new ArrayAdapter <> (SetServiceActivity.this,
+//                            R.layout.activity_list_service,services);
+//                    listViewServices.setAdapter(adapter);
+//                }
+//
+//                else
+//                    Log.d("SetService","error getting document: ",task.getException());
+//            }
+//        });
+//    }
+
+    private void update (String oldName, String name , String forms, String docs) {
+
+        List<String> myForms = new ArrayList<>();
+        for ( String info : forms.split(",")) {
+            myForms.add(info.trim());
+        }
+        List<String> myDocs = new ArrayList<>();
+
+        for(String info : docs.split(",")) {
+            myDocs.add(info.trim());
+        }
+        Map newData = new HashMap();
+        newData.put("serviceName",name);
+        newData.put("formFields", myForms);
+        newData.put("documentsNames",myDocs);
+        fb.deleteDocument("services/"+Service.toCamelCase(oldName));
+        services.remove(oldName);
+        fb.setDocument("services/" + Service.toCamelCase(name),newData);
+        services.add(name);
+        //listViewServices.deferNotifyDataSetChanged();
+
+        Toast.makeText(this,"Service mis à jour",Toast.LENGTH_SHORT).show();
     }
 
+    private void delete (String name) {
+        fb.deleteDocument("services/" + Service.toCamelCase(name));
+        services.remove(name);
+        Toast.makeText(this,"Service supprimé",Toast.LENGTH_SHORT).show();
+    }
 
+    private void showDialogUpdate (final String serviceName) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.layout,null);
+        dialogBuilder.setView(dialogView);
 
+        final EditText newName = (EditText) dialogView.findViewById(R.id.newName);
+        final EditText newForms = (EditText) dialogView.findViewById(R.id.newForm);
+        final EditText newDocs = (EditText) dialogView.findViewById(R.id.newDoc);
+        final Button update = (Button) dialogView.findViewById(R.id.modifier_1);
+        final Button delete = (Button) dialogView.findViewById(R.id.delete_1);
+        final Button cancel = (Button) dialogView.findViewById(R.id.cancel);
+        final TextView error = (TextView) dialogView.findViewById(R.id.error);
+
+        dialogBuilder.setTitle(serviceName);
+        final AlertDialog b = dialogBuilder.create();
+        b.show();
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = newName.getText().toString().trim();
+                String forms = newForms.getText().toString().trim();
+                String docs = newDocs.getText().toString().trim();
+                if (!TextUtils.isEmpty(name) & !TextUtils.isEmpty(forms) & !TextUtils.isEmpty(docs)) {
+                    update(serviceName,name,forms,docs);
+                    b.dismiss();
+                }
+                else {
+                    error.setError("Vous devez remplir tous les champs");
+                }
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                delete(serviceName);
+                b.dismiss();
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                b.dismiss();
+            }
+        });
+    }
 }

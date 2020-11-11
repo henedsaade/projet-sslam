@@ -28,31 +28,20 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="207dp"
+        android:layout_marginTop="234dp"
         android:background="@drawable/shape"
         android:text="Ajouter un service"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <Button
         android:id="@+id/setService"
-        android:layout_width="wrap_content"
+        android:layout_width="372dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
-        android:layout_marginTop="328dp"
+        android:layout_marginTop="358dp"
         android:background="@drawable/shape"
-        android:text="Modifier un service"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-    <Button
-        android:id="@+id/deleteService"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="200dp"
-        android:background="@drawable/shape"
-        android:text="Supprimer un service"
+        android:text="Modifier ou supprimer un service"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
 </RelativeLayout>

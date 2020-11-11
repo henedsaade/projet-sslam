@@ -13,7 +13,6 @@ public class AdminActivity extends AppCompatActivity {
 
     private Button add;
     private Button set;
-    private Button delete;
 
 
     @Override
@@ -37,13 +36,6 @@ public class AdminActivity extends AppCompatActivity {
             }
         });
 
-        delete = (Button) findViewById( (R.id.deleteService));
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDeletePage();
-            }
-        });
 
     }
 
@@ -57,8 +49,4 @@ public class AdminActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void openDeletePage () {
-        Intent intent =  new Intent(this,DeleteService.class);
-        startActivity(intent);
-    }
 }

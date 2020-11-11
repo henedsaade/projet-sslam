@@ -125,7 +125,7 @@ public class FbWrapper {
 
                             // Get instance
                             currentUser = Account.accountFromType(userName, firstName, lastName, email, fUser.getUid(), accountType);
-//                            Log.d(TAG, currentUser.toString());
+                            Log.d(TAG, currentUser.toString());
 
                             // Save user data to Firestore
                             currentUser.saveAccountToFirestore(mInstance, FieldValue.serverTimestamp());

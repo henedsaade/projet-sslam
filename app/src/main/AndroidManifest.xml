@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.servicenovigrad">
 
+    <uses-permission android:name="android.permission.INTERNET " />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,9 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.DeleteService"></activity>
-        <activity android:name=".activities.Modifications" />
-        <activity android:name=".activities.SetServiceActivity" />
+        <activity android:name=".activities.SetServiceActivity"></activity>
+        <activity android:name=".services.ListService" />
         <activity android:name=".activities.AdminActivity" />
         <activity
             android:name=".activities.DocumentUploadActivity"
