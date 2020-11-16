@@ -1,10 +1,11 @@
-package com.example.servicenovigrad;
+package com.example.servicenovigrad.accounts;
 
+import com.example.servicenovigrad.fb.FbWrapper;
 import com.google.firebase.firestore.FieldValue;
 
 public abstract class Account extends Object {
     protected static final String TAG = "[CONSOLE]";
-    protected static final String firestoreUsersRoute = "users/";
+    public static final String firestoreUsersRoute = "users/";
     protected String userName, firstName, lastName, email, uid;
 
     public abstract void saveAccountToFirestore(FbWrapper fb, FieldValue timestamp);

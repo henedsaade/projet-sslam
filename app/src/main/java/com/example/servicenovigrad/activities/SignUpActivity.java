@@ -1,11 +1,10 @@
-package com.example.servicenovigrad;
+package com.example.servicenovigrad.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,20 +13,25 @@ import android.text.TextUtils;
 import android.util.Patterns;
 import android.widget.TextView;
 
+import com.example.servicenovigrad.accounts.Account;
+import com.example.servicenovigrad.accounts.AccountType;
+import com.example.servicenovigrad.fb.FbWrapper;
+import com.example.servicenovigrad.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 //import java.lang.Object.javax.mail.internet.InternetAddress;
 //import org.apache.commons.validator.routines.EmailValidator;
 
 
-public class SignUpPage2 extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
     private static final String TAG = "[CONSOLE]";
     private Button createaccountButton;
     private EditText prenom;
@@ -37,7 +41,9 @@ public class SignUpPage2 extends AppCompatActivity {
     private EditText motDePasse;
     private EditText confirmationMotDePasse;
     private TextView errors;
-    private FbWrapper fb = FbWrapper.getInstance();
+    FbWrapper fb = FbWrapper.getInstance();
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private Account currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,18 +63,29 @@ public class SignUpPage2 extends AppCompatActivity {
         createaccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+               final String userName = utilisateur.getText().toString();
+               final String password = motDePasse.getText().toString();
+               final String email = courriel.getText().toString();
+               final String lastName = nom.getText().toString();
+               final String firstName = prenom.getText().toString();
+
                 if(checkValidSignUp()) {
                     try {
                         int var = Integer.parseInt(utilisateur.getText().toString());
                         //Log.d(TAG, "This is var: "+var);
 
                         if(var<1000000000 && var>99999999) {
-                            fb.handleSignUp(Integer.toString(var), prenom.getText().toString(), nom.getText().toString(), courriel.getText().toString(), motDePasse.getText().toString(), AccountType.EMPLOYEE).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
+                           fb.handleSignUp(userName, firstName, lastName, email, password, AccountType.EMPLOYEE).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                               @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    openWelcomePage();
-                                }
-                            });
+                                   openWelcomePage();
+                               }
+                           });
+
+
+
+
                         }else{
                             throw new NumberFormatException();
                         }
@@ -76,13 +93,13 @@ public class SignUpPage2 extends AppCompatActivity {
                     catch (NumberFormatException e) {
                         // it was not a number
                         //create client
-
-                        fb.handleSignUp(utilisateur.getText().toString(), prenom.getText().toString(), nom.getText().toString(), courriel.getText().toString(), motDePasse.getText().toString(), AccountType.CLIENT).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                openWelcomePage();
+                        fb.handleSignUp(userName, firstName, lastName, email, password, AccountType.CLIENT).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                           @Override
+                           public void onComplete(@NonNull Task<AuthResult> task) {
+                               openWelcomePage();
                             }
                         });
+
                     }
                 }else{
                     createError();
@@ -93,7 +110,7 @@ public class SignUpPage2 extends AppCompatActivity {
     }
 
     public void openWelcomePage() {
-        Intent intent = new Intent(this, WelcomePage.class);
+        Intent intent = new Intent(this, WelcomeActivity.class);
         startActivity(intent);
     }
 
@@ -108,7 +125,7 @@ public class SignUpPage2 extends AppCompatActivity {
     }
 
     public void createError(){
-        errors.setText("Vous avez entré la mauvaise information");
+        errors.setError("Vous avez entré la mauvaise information");
     }
     public static boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());

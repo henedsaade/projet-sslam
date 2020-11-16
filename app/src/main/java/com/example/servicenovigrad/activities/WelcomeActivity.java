@@ -1,34 +1,39 @@
-package com.example.servicenovigrad;
+package com.example.servicenovigrad.activities;
 
 
 import android.os.Bundle;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.text.TextUtils;
-import android.util.Patterns;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.servicenovigrad.fb.FbWrapper;
+import com.example.servicenovigrad.R;
+import com.example.servicenovigrad.services.Document;
+import com.example.servicenovigrad.services.Service;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
-public class WelcomePage extends AppCompatActivity {
+import io.grpc.internal.SerializingExecutor;
+
+public class WelcomeActivity extends AppCompatActivity {
     private TextView welcomeMessage;
     private Button signoutButton;
     private FbWrapper fb;
+    private Button continueButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,13 @@ public class WelcomePage extends AppCompatActivity {
                 openSignInPage();
             }
         });
+        continueButton = (Button) findViewById(R.id.go);
+        continueButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openServicePage();
+            }
+        });
 
         String prenom = fb.getCurrentUser().getFirstName();
         String role = fb.getCurrentUser().getRole();
@@ -54,6 +66,10 @@ public class WelcomePage extends AppCompatActivity {
 
     public void openSignInPage() {
         Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+    public void openServicePage() {
+        Intent intent = new Intent(this,AdminActivity.class);
         startActivity(intent);
     }
 }
