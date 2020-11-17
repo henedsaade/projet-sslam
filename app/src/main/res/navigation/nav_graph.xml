@@ -27,11 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/First2Fragment"
-<<<<<<< HEAD
         android:name="com.example.servicenovigrad.activities.First2Fragment"
-=======
-        android:name="com.example.servicenovigrad.First2Fragment"
->>>>>>> a8f0fc29a94666a9d3904ed586ecbf9d0cd405c1
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first2">
 
@@ -41,11 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/Second2Fragment"
-<<<<<<< HEAD
         android:name="com.example.servicenovigrad.activities.Second2Fragment"
-=======
-        android:name="com.example.servicenovigrad.Second2Fragment"
->>>>>>> a8f0fc29a94666a9d3904ed586ecbf9d0cd405c1
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second2">
 

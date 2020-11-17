@@ -20,11 +20,7 @@ public class EmployeeOptions extends AppCompatActivity {
         setContentView(R.layout.activity_employee_options);
 
         add = findViewById(R.id.add_service);
-<<<<<<< HEAD
-//        delete = findViewById(R.id.remove_service);
-=======
         view = findViewById(R.id.serviceAvailable);
->>>>>>> a8f0fc29a94666a9d3904ed586ecbf9d0cd405c1
         schedule = findViewById(R.id.schedule);
         request = findViewById(R.id.request);
 

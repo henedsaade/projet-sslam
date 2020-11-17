@@ -52,7 +52,7 @@ public class EmployeeManageServices extends AppCompatActivity {
                         services.add(name);
 
                         ListAdapter adapter = new ArrayAdapter<>(EmployeeManageServices.this,
-                                R.layout.activity_list_service, services);
+                        R.layout.activity_list_service, services);
                         availableService.setAdapter(adapter);
 
                     }
