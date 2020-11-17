@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,11 +20,9 @@ import android.widget.Toast;
 
 import com.example.servicenovigrad.R;
 import com.example.servicenovigrad.fb.FbWrapper;
-import com.example.servicenovigrad.services.Document;
 import com.example.servicenovigrad.services.Service;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -139,7 +136,7 @@ public class SetServiceActivity extends AppCompatActivity {
     private void showDialogUpdate (final String serviceName) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.layout,null);
+        final View dialogView = inflater.inflate(R.layout.set_service_dialog,null);
         dialogBuilder.setView(dialogView);
 
         final EditText newName = (EditText) dialogView.findViewById(R.id.newName);

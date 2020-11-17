@@ -20,7 +20,7 @@
             android:name=".activities.DocumentUploadActivity"
             android:label="@string/title_activity_document_upload"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.AddServiceActivity" />
+        <activity android:name=".activities.CreateServiceActivity" />
         <activity android:name=".AdminPage" />
         <activity
             android:name=".activities.WelcomeActivity"

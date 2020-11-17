@@ -10,7 +10,7 @@ import com.example.servicenovigrad.R;
 public class EmployeeOptions extends AppCompatActivity {
 
     private Button add;
-    private Button delete;
+    private Button view;
     private Button schedule;
     private Button request;
 
@@ -20,7 +20,7 @@ public class EmployeeOptions extends AppCompatActivity {
         setContentView(R.layout.activity_employee_options);
 
         add = findViewById(R.id.add_service);
-        delete = findViewById(R.id.remove_service);
+        view = findViewById(R.id.serviceAvailable);
         schedule = findViewById(R.id.schedule);
         request = findViewById(R.id.request);
 
