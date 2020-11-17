@@ -11,7 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.EmployeeAddingService"></activity>
+        <activity
+            android:name=".prototype_horaire"
+            android:label="@string/title_activity_prototype_horaire"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".activities.EmployeeAddingService" />
         <activity android:name=".activities.EmployeeOptions" />
         <activity android:name=".activities.SetServiceActivity" />
         <activity android:name=".services.ListService" />
