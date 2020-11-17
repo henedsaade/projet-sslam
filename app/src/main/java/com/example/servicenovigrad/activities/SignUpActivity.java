@@ -73,8 +73,6 @@ public class SignUpActivity extends AppCompatActivity {
                 if(checkValidSignUp()) {
                     try {
                         int var = Integer.parseInt(utilisateur.getText().toString());
-                        //Log.d(TAG, "This is var: "+var);
-
                         if (var<1000000000 && var>99999999) {
                            fb.handleSignUp(userName, firstName, lastName, email, password, AccountType.EMPLOYEE).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                @Override

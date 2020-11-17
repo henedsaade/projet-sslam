@@ -16,11 +16,7 @@ import java.util.Map;
 
 public class ClientAccount extends Account {
     public ClientAccount(String userName, String firstName, String lastName, String email, String uid) {
-        this.userName = userName;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.uid = uid;
+        super(userName, firstName, lastName, email, uid);
     }
 
     public AccountType getAccountType() {

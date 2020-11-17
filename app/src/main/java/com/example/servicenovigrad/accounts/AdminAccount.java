@@ -15,11 +15,7 @@ import static androidx.core.content.ContextCompat.startActivity;
 
 public class AdminAccount extends Account {
     public AdminAccount(String userName, String firstName, String lastName, String email, String uid) {
-        this.userName = userName;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.uid = uid;
+        super(userName, firstName, lastName, email, uid);
     }
 
     public AccountType getAccountType() {

@@ -17,11 +17,7 @@ import static androidx.core.content.ContextCompat.startActivity;
 
 public class EmployeeAccount extends Account {
     public EmployeeAccount(String userName, String firstName, String lastName, String email, String uid) {
-        this.userName = userName;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.uid = uid;
+        super(userName, firstName, lastName, email, uid);
     }
 
     public AccountType getAccountType() {

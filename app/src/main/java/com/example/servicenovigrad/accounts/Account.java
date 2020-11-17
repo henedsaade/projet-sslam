@@ -12,6 +12,14 @@ public abstract class Account extends Object {
     public static final String firestoreUsersRoute = "users/";
     protected String userName, firstName, lastName, email, uid;
 
+    public Account(String userName, String firstName, String lastName, String email, String uid) {
+        this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.uid = uid;
+    } 
+
     public abstract void saveAccountToFirestore(FbWrapper fb, FieldValue timestamp);
     
     public String getEmail()  {
