@@ -67,11 +67,12 @@ public class AddServiceActivity extends AppCompatActivity {
         });
     }
 
-        private void openOptionPage () {
-            Intent intent = new Intent(this, AdminActivity.class);
-            startActivity(intent);
-        }
-        private void error () {
-            Toast.makeText(getApplicationContext(), "Vous devez remplir tous les champs", Toast.LENGTH_LONG).show();
-        }
+    private void openOptionPage () {
+        Intent intent = new Intent(this, AdminActivity.class);
+        startActivity(intent);
+    }
+    
+    private void error () {
+        Toast.makeText(getApplicationContext(), "Vous devez remplir tous les champs", Toast.LENGTH_LONG).show();
+    }
 }

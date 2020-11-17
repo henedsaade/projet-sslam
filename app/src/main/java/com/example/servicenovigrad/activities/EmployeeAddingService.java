@@ -22,6 +22,6 @@ public class EmployeeAddingService extends AppCompatActivity {
         setContentView(R.layout.activity_employee_adding_service);
         availableService = findViewById(R.id.employeeListView);
 
-        services
+//        services
     }
 }

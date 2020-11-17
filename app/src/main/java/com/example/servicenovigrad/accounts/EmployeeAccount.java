@@ -5,6 +5,7 @@ import android.util.Log;
 import android.content.Intent;
 
 import com.example.servicenovigrad.activities.AdminActivity;
+import com.example.servicenovigrad.activities.EmployeeOptions;
 import com.example.servicenovigrad.fb.FbWrapper;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -37,13 +38,14 @@ public class EmployeeAccount extends Account {
         dataToSave.put("firstName", this.firstName);
         dataToSave.put("lastName", this.lastName);
         dataToSave.put("role", "employee");
+        dataToSave.put("succursale", null);
         String documentPath = firestoreUsersRoute + this.uid;
 
         fb.setDocument(documentPath, dataToSave);
     }
 
     public void openMainUi(Context currentActivity) {
-        Intent intent = new Intent(currentActivity, AdminActivity.class);
+        Intent intent = new Intent(currentActivity, EmployeeOptions.class);
         currentActivity.startActivity(intent);
     }
 
