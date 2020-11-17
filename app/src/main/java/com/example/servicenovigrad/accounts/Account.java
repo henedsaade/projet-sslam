@@ -1,5 +1,9 @@
 package com.example.servicenovigrad.accounts;
 
+import android.content.Context;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.servicenovigrad.fb.FbWrapper;
 import com.google.firebase.firestore.FieldValue;
 
@@ -33,6 +37,8 @@ public abstract class Account extends Object {
     public abstract AccountType getAccountType();
 
     public abstract String getRole();
+
+    public abstract void openMainUi(Context currentActivity);
 
     /* Use this method ONLY for sign up!
      * */

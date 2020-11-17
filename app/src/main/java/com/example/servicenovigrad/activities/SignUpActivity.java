@@ -75,7 +75,7 @@ public class SignUpActivity extends AppCompatActivity {
                         int var = Integer.parseInt(utilisateur.getText().toString());
                         //Log.d(TAG, "This is var: "+var);
 
-                        if(var<1000000000 && var>99999999) {
+                        if (var<1000000000 && var>99999999) {
                            fb.handleSignUp(userName, firstName, lastName, email, password, AccountType.EMPLOYEE).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -83,10 +83,7 @@ public class SignUpActivity extends AppCompatActivity {
                                }
                            });
 
-
-
-
-                        }else{
+                        } else {
                             throw new NumberFormatException();
                         }
                     }
@@ -101,7 +98,7 @@ public class SignUpActivity extends AppCompatActivity {
                         });
 
                     }
-                }else{
+                } else {
                     createError();
                 }
             }

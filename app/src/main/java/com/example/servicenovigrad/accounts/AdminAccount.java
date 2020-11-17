@@ -1,13 +1,17 @@
 package com.example.servicenovigrad.accounts;
 
-import android.util.Log;
+import android.content.Context;
+import android.content.Intent;
 
+import com.example.servicenovigrad.activities.AdminActivity;
 import com.example.servicenovigrad.fb.FbWrapper;
 import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.FirebaseFirestoreException;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static androidx.core.content.ContextCompat.startActivity;
 
 public class AdminAccount extends Account {
     public AdminAccount(String userName, String firstName, String lastName, String email, String uid) {
@@ -39,4 +43,10 @@ public class AdminAccount extends Account {
 
         fb.setDocument(documentPath, dataToSave);
     }
+
+    public void openMainUi(Context currentActivity) {
+        Intent intent = new Intent(currentActivity, AdminActivity.class);
+        currentActivity.startActivity(intent);
+    }
+
 }
