@@ -23,5 +23,7 @@ public class EmployeeOptions extends AppCompatActivity {
         delete = findViewById(R.id.remove_service);
         schedule = findViewById(R.id.schedule);
         request = findViewById(R.id.request);
+
+
     }
 }
