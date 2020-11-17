@@ -15,7 +15,7 @@
             android:name=".activities.CreateSuccursale"
             android:label="@string/title_activity_create_succursale"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".activities.EmployeeAddingService" />
+        <activity android:name=".activities.EmployeeManageServices" />
         <activity android:name=".activities.EmployeeOptions" />
         <activity android:name=".activities.SetServiceActivity" />
         <activity android:name=".services.ListService" />

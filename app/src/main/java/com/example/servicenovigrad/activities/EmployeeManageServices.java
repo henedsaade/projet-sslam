@@ -14,22 +14,18 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.servicenovigrad.R;
-import com.example.servicenovigrad.accounts.Account;
 import com.example.servicenovigrad.fb.FbWrapper;
 import com.example.servicenovigrad.services.Service;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeAddingService extends AppCompatActivity {
+public class EmployeeManageServices extends AppCompatActivity {
 
     ListView availableService;
     List<String> services;
@@ -55,7 +51,7 @@ public class EmployeeAddingService extends AppCompatActivity {
                         Service myService = new Service(name, myForms, myDocs);
                         services.add(name);
 
-                        ListAdapter adapter = new ArrayAdapter<>(EmployeeAddingService.this,
+                        ListAdapter adapter = new ArrayAdapter<>(EmployeeManageServices.this,
                                 R.layout.activity_list_service, services);
                         availableService.setAdapter(adapter);
 
