@@ -41,7 +41,7 @@
         android:id="@+id/createSuccursale"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="464dp"
+        android:layout_marginTop="596dp"
         android:background="@drawable/shape"
         android:enabled="true"
         android:fontFamily="sans-serif-medium"
