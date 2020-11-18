@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
@@ -33,7 +34,9 @@ import java.util.Map;
 
 public class SetServiceActivity extends AppCompatActivity {
     ListView listViewServices;
-    ArrayList<String> services;
+    List<String> servicesName;
+    List<String> forms;
+    List<String> docs;
     FbWrapper fb = FbWrapper.getInstance();
 
     @Override
@@ -42,33 +45,48 @@ public class SetServiceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_set_service);
         listViewServices = (ListView) findViewById(R.id.listview);
 
-        services = new ArrayList<>();
+        servicesName = new ArrayList<>();
+        forms = new ArrayList<>();
+        docs = new ArrayList<>();
 
         listViewServices.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                String serviceName = services.get(position);
+                String serviceName = servicesName.get(position);
                 showDialogUpdate(serviceName);
                 return true;
             }
         });
 
+        loadFromFireBase();
+
+
+
+    }
+
+    public void loadFromFireBase() {
+
         fb.getCollection("services").addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()) {
-                    services.clear();
+                    servicesName.clear();
+                    docs.clear();
+                    forms.clear();
                     for(QueryDocumentSnapshot doc : task.getResult()) {
                         String name = (String) doc.get("serviceName");
                         List<String> myForms = (List<String>) doc.get("formFields");
                         List<String> myDocs = (List<String>) doc.get("documentsNames");
                         Service myService = new Service(name,myForms,myDocs);
-                        services.add(name );
+                        servicesName.add(myService.getServiceName());
+                        forms.add(myService.getFormsFieldsInString());
+                        docs.add(myService.getDocsFieldsInString());
+
                         Log.d("SetService ","getting document is sucessfull " + "=>" + name);
                     }
-                    ListAdapter adapter = new ArrayAdapter <> (SetServiceActivity.this,
-                            R.layout.activity_list_service,services);
+                    MyAdapterList adapter = new MyAdapterList (SetServiceActivity.this,servicesName,forms,docs);
                     listViewServices.setAdapter(adapter);
+
                 }
 
                 else
@@ -77,31 +95,6 @@ public class SetServiceActivity extends AppCompatActivity {
         });
 
     }
-
-//    public void display() {
-//
-//        fb.getCollection("services").addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if(task.isSuccessful()) {
-//                    for(QueryDocumentSnapshot doc : task.getResult()) {
-//                        String name = (String) doc.get("serviceName");
-//                        List<String> myForms = (List<String>) doc.get("formFields");
-//                        List<String> myDocs = (List<String>) doc.get("documentsNames");
-//                        Service myService = new Service(name,myForms,myDocs);
-//                        services.add(name );
-//                        Log.d("SetService ","getting document is sucessfull " + "=>" + name);
-//                    }
-//                    ListAdapter adapter = new ArrayAdapter <> (SetServiceActivity.this,
-//                            R.layout.activity_list_service,services);
-//                    listViewServices.setAdapter(adapter);
-//                }
-//
-//                else
-//                    Log.d("SetService","error getting document: ",task.getException());
-//            }
-//        });
-//    }
 
     private void update (String oldName, String name , String forms, String docs) {
 
@@ -118,18 +111,17 @@ public class SetServiceActivity extends AppCompatActivity {
         newData.put("serviceName",name);
         newData.put("formFields", myForms);
         newData.put("documentsNames",myDocs);
+
         fb.deleteDocument("services/"+Service.toCamelCase(oldName));
-        services.remove(oldName);
         fb.setDocument("services/" + Service.toCamelCase(name),newData);
-        services.add(name);
-        //listViewServices.deferNotifyDataSetChanged();
+        loadFromFireBase();
 
         Toast.makeText(this,"Service mis à jour",Toast.LENGTH_SHORT).show();
     }
 
     private void delete (String name) {
         fb.deleteDocument("services/" + Service.toCamelCase(name));
-        services.remove(name);
+       loadFromFireBase();
         Toast.makeText(this,"Service supprimé",Toast.LENGTH_SHORT).show();
     }
 
