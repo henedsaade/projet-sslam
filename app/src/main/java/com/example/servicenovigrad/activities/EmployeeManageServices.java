@@ -122,7 +122,7 @@ public class EmployeeManageServices extends AppCompatActivity {
                             final DocumentReference succursaleRef = (DocumentReference) task.getResult().get("succursale");
 
 
-                            //If employee have not a succursale he should create one
+                            //If employee succursale reference is "template" he should create one to continue
                             if (succursaleRef.equals(fb.getDocumentRef("succursales/template"))) {
 
                                 Toast.makeText(getApplicationContext(), "Vous devez d'abord creer une succursale", Toast.LENGTH_SHORT).show();
