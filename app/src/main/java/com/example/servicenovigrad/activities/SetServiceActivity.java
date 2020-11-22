@@ -54,6 +54,7 @@ public class SetServiceActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 String serviceName = servicesName.get(position);
                 showDialogUpdate(serviceName);
+                loadFromFireBase();
                 return true;
             }
         });

@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.SuccursaleAvailableServices"></activity>
+        <activity android:name=".activities.setHourActivity"></activity>
+        <activity android:name=".activities.SuccursaleAvailableServices" />
         <activity
             android:name=".activities.CreateSuccursale"
             android:label="@string/title_activity_create_succursale"

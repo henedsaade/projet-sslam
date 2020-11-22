@@ -61,7 +61,7 @@ public class WelcomeActivity extends AppCompatActivity {
         String role = fb.getCurrentUser().getRole();
 
         welcomeMessage= (TextView) findViewById(R.id.welcome);
-        welcomeMessage.setText("Bienvenue, " + prenom + ". Vous êtes connecté sous un compte " + role + ".");
+         welcomeMessage.setText("Bienvenue, " + prenom + ". Vous êtes connecté sous un compte " + role + ".");
     }
 
     public void openSignInPage() {

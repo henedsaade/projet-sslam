@@ -4,11 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -51,6 +53,7 @@ public class SuccursaleAvailableServices extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 String serviceName = servicesName.get(position);
                 showDialogPage(serviceName);
+                loadServiceFromFireBase();
                 return true;
             }
         });
@@ -98,6 +101,9 @@ public class SuccursaleAvailableServices extends AppCompatActivity {
                                 });
                             }
                         }
+                        else
+                            startActivity(new Intent(getApplicationContext(),EmployeeOptions.class));
+
                     }
                 });
 
@@ -141,8 +147,9 @@ public class SuccursaleAvailableServices extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()) {
                                         Toast.makeText(getApplicationContext(), "service supprimé", Toast.LENGTH_SHORT).show();
+                                        //loadServiceFromFireBase();
                                         b.dismiss();
-                                        loadServiceFromFireBase();
+
                                     }
                                 }
                             });

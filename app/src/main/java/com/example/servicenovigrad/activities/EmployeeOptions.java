@@ -49,6 +49,13 @@ public class EmployeeOptions extends AppCompatActivity {
            }
        });
 
+       schedule.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               startActivity(new Intent(EmployeeOptions.this, setHourActivity.class));
+           }
+       });
+
 
     }
 }

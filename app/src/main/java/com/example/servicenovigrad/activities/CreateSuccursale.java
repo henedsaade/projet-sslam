@@ -65,13 +65,13 @@ public class CreateSuccursale extends AppCompatActivity {
                 if(!(checkError(myStreet,myBuilding,day1,day2,day3,day4,day5,day6,day7))){
 
                     Map<String,String> worksHours = new HashMap<>();
-                    worksHours.put("monday",day1);
-                    worksHours.put("tuesday",day2);
-                    worksHours.put("wednesday",day3);
-                    worksHours.put("thursday",day4);
-                    worksHours.put("friday",day5);
-                    worksHours.put("saturday",day6);
-                    worksHours.put("sunday",day7);
+                    worksHours.put("lundi",day1);
+                    worksHours.put("mardi",day2);
+                    worksHours.put("mercredi",day3);
+                    worksHours.put("jeudi",day4);
+                    worksHours.put("vendredi",day5);
+                    worksHours.put("samedi",day6);
+                    worksHours.put("dimanche",day7);
 
                     //Getting employee Uid;
                     String employeUid = fb.getUserUid();
