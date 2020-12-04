@@ -34,13 +34,13 @@ import java.util.Map;
 public class SignUpActivity extends AppCompatActivity {
     private static final String TAG = "[CONSOLE]";
     private Button createaccountButton;
-    private static EditText prenom;
-    private static EditText nom;
-    private static EditText courriel;
-    private static EditText utilisateur;
-    private static EditText motDePasse;
-    private static EditText confirmationMotDePasse;
-    private static TextView errors;
+    private EditText prenom;
+    private EditText nom;
+    private EditText courriel;
+    private EditText utilisateur;
+    private EditText motDePasse;
+    private EditText confirmationMotDePasse;
+    private TextView errors;
     FbWrapper fb = FbWrapper.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private Account currentUser;
@@ -114,7 +114,7 @@ public class SignUpActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public static boolean checkValidSignUp() {
+    public boolean checkValidSignUp() {
         boolean prenomValide = !prenom.getText().toString().isEmpty() /*&& only contains alphabet*/;
         boolean nomValide = !nom.getText().toString().isEmpty() /*&& only contains alphabet*/;
         boolean utilisateurValide = !utilisateur.getText().toString().isEmpty() /*&& not already a user*/;
