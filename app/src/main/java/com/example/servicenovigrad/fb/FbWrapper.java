@@ -15,6 +15,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -55,6 +56,10 @@ public class FbWrapper {
 
     public Task<Void> deleteDocument(String documentPath) {
         return db.document(documentPath).delete();
+    }
+
+    public DocumentReference getDocumentRef (String documentPath) {
+        return db.document(documentPath);
     }
 
     public Task<DocumentSnapshot> initiateUser() {
@@ -150,6 +155,10 @@ public class FbWrapper {
                         }
                     }
                 });
+    }
+
+    public String getUserUid() {
+        return auth.getCurrentUser().getUid();
     }
 
     public void handleSignOut() {

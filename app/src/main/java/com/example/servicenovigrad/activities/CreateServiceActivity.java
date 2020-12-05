@@ -11,13 +11,11 @@ import android.widget.Toast;
 
 import com.example.servicenovigrad.R;
 import com.example.servicenovigrad.services.Service;
-import com.example.servicenovigrad.services.ServiceType;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
-public class AddServiceActivity extends AppCompatActivity {
+public class CreateServiceActivity extends AppCompatActivity {
 
     private Button add;
     private EditText serviceType;
@@ -30,7 +28,7 @@ public class AddServiceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_service2);
+        setContentView(R.layout.activity_create_service);
         add = (Button) findViewById(R.id.add);
         serviceType = (EditText) findViewById(R.id.serviceType);
         documents = (EditText) findViewById(R.id.documents);
@@ -67,11 +65,12 @@ public class AddServiceActivity extends AppCompatActivity {
         });
     }
 
-        private void openOptionPage () {
-            Intent intent = new Intent(this, AdminActivity.class);
-            startActivity(intent);
-        }
-        private void error () {
-            Toast.makeText(getApplicationContext(), "Vous devez remplir tous les champs", Toast.LENGTH_LONG).show();
-        }
+    private void openOptionPage () {
+        Intent intent = new Intent(this, AdminActivity.class);
+        startActivity(intent);
+    }
+    
+    private void error () {
+        Toast.makeText(getApplicationContext(), "Vous devez remplir tous les champs", Toast.LENGTH_LONG).show();
+    }
 }

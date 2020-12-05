@@ -1,6 +1,5 @@
 package com.example.servicenovigrad.activities;
 
-
 import android.os.Bundle;
 import android.content.Intent;
 import android.util.Log;
@@ -34,6 +33,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private Button signoutButton;
     private FbWrapper fb;
     private Button continueButton;
+    private AppCompatActivity activityRef = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class WelcomeActivity extends AppCompatActivity {
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openServicePage();
+                fb.getCurrentUser().openMainUi(activityRef);
             }
         });
 
@@ -61,15 +61,11 @@ public class WelcomeActivity extends AppCompatActivity {
         String role = fb.getCurrentUser().getRole();
 
         welcomeMessage= (TextView) findViewById(R.id.welcome);
-        welcomeMessage.setText("Bienvenue, " + prenom + ". Vous êtes connecté sous un compte " + role + ".");
+         welcomeMessage.setText("Bienvenue, " + prenom + ". Vous êtes connecté sous un compte " + role + ".");
     }
 
     public void openSignInPage() {
         Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-    public void openServicePage() {
-        Intent intent = new Intent(this,AdminActivity.class);
         startActivity(intent);
     }
 }

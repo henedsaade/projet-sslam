@@ -73,9 +73,7 @@ public class SignUpActivity extends AppCompatActivity {
                 if(checkValidSignUp()) {
                     try {
                         int var = Integer.parseInt(utilisateur.getText().toString());
-                        //Log.d(TAG, "This is var: "+var);
-
-                        if(var<1000000000 && var>99999999) {
+                        if (var<1000000000 && var>99999999) {
                            fb.handleSignUp(userName, firstName, lastName, email, password, AccountType.EMPLOYEE).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -83,10 +81,7 @@ public class SignUpActivity extends AppCompatActivity {
                                }
                            });
 
-
-
-
-                        }else{
+                        } else {
                             throw new NumberFormatException();
                         }
                     }
@@ -101,7 +96,7 @@ public class SignUpActivity extends AppCompatActivity {
                         });
 
                     }
-                }else{
+                } else {
                     createError();
                 }
             }
@@ -114,7 +109,7 @@ public class SignUpActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public boolean checkValidSignUp(){
+    public boolean checkValidSignUp() {
         boolean prenomValide = !prenom.getText().toString().isEmpty() /*&& only contains alphabet*/;
         boolean nomValide = !nom.getText().toString().isEmpty() /*&& only contains alphabet*/;
         boolean utilisateurValide = !utilisateur.getText().toString().isEmpty() /*&& not already a user*/;

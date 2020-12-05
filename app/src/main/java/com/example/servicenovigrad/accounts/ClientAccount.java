@@ -1,10 +1,14 @@
 package com.example.servicenovigrad.accounts;
 
+import android.content.Context;
 import android.util.Log;
+import android.content.Intent;
 
+import com.example.servicenovigrad.activities.AdminActivity;
 import com.example.servicenovigrad.fb.FbWrapper;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,11 +16,7 @@ import java.util.Map;
 
 public class ClientAccount extends Account {
     public ClientAccount(String userName, String firstName, String lastName, String email, String uid) {
-        this.userName = userName;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.uid = uid;
+        super(userName, firstName, lastName, email, uid);
     }
 
     public AccountType getAccountType() {
@@ -39,6 +39,11 @@ public class ClientAccount extends Account {
         String documentPath = firestoreUsersRoute + this.uid;
 
         fb.setDocument(documentPath, dataToSave);
+    }
+
+    public void openMainUi(Context currentActivity) {
+        Intent intent = new Intent(currentActivity, AdminActivity.class);
+        currentActivity.startActivity(intent);
     }
 
 }

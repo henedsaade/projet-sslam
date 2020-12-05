@@ -11,6 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.setHourActivity"></activity>
+        <activity android:name=".activities.SuccursaleAvailableServices" />
+        <activity
+            android:name=".activities.CreateSuccursale"
+            android:label="@string/title_activity_create_succursale"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.EmployeeManageServices" />
         <activity android:name=".activities.employe_service"></activity>
         <activity android:name=".activities.EmployeeOptions" />
         <activity android:name=".activities.SetServiceActivity" />
@@ -20,7 +27,7 @@
             android:name=".activities.DocumentUploadActivity"
             android:label="@string/title_activity_document_upload"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.AddServiceActivity" />
+        <activity android:name=".activities.CreateServiceActivity" />
         <activity android:name=".AdminPage" />
         <activity
             android:name=".activities.WelcomeActivity"

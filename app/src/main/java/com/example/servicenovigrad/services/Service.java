@@ -156,6 +156,21 @@ public class Service {
         return formFields;
     }
 
+    public String getFormsFieldsInString () {
+        String forms = "Formulaire à remplir:";
+        for(String info : this.formFields) {
+            forms = forms + " " + info;
+        }
+        return  forms;
+    }
+    public String getDocsFieldsInString () {
+        String docs = "Documents requis:";
+        for(String info : this.documentsNames) {
+            docs = docs + " " + info;
+        }
+        return  docs;
+    }
+
     public List<String> getDocumentsNames() {
         return documentsNames;
     }

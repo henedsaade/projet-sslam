@@ -40,7 +40,7 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     private void openAddPage() {
-        Intent intent= new Intent(this, AddServiceActivity.class);
+        Intent intent= new Intent(this, CreateServiceActivity.class);
         startActivity(intent);
     }
 
