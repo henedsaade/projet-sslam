@@ -36,17 +36,18 @@ public class WelcomeActivity extends AppCompatActivity {
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //fb.getCurrentUser().openMainUi(activityRef);
-                openClientPage();
+                fb.getCurrentUser().openMainUi(activityRef);
+
+
 
             }
         });
 
-//        String prenom = fb.getCurrentUser().getFirstName();
-//        String role = fb.getCurrentUser().getRole();
-//
-//       welcomeMessage= (TextView) findViewById(R.id.welcome);
-//        welcomeMessage.setText("Bienvenue, " + prenom + ". Vous êtes connecté sous un compte " + role + ".");
+       String prenom = fb.getCurrentUser().getFirstName();
+        String role = fb.getCurrentUser().getRole();
+
+       welcomeMessage= (TextView) findViewById(R.id.welcome);
+        welcomeMessage.setText("Bienvenue, " + prenom + ". Vous êtes connecté sous un compte " + role + ".");
     }
 
     public void openSignInPage() {

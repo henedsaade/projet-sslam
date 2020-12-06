@@ -18,6 +18,7 @@ public class Succursale {
     List<DocumentReference> services;
     Map<String,String> worksHours;
     String succursaleUid;
+    List<DocumentReference> servicesRequest;
     FirebaseFirestore mStore;
     FbWrapper fb = FbWrapper.getInstance();
     final String firestoreUsersRoute = "succursales/";
@@ -29,6 +30,8 @@ public class Succursale {
         this.services = new ArrayList<>();
         this.employeeUIDS = fb.getDocumentRef("users/"+employeeUid);
         this.succursaleUid = succursaleUid;
+        this.servicesRequest = new ArrayList<>();
+        servicesRequest.add(fb.getDocumentRef("servicesRequests/template"))   ;
     }
 
     public Map<String,String> getWorksHours() {
@@ -64,6 +67,7 @@ public class Succursale {
         dataToSave.put("services", this.services);
         dataToSave.put("employeeUIDS", this.employeeUIDS);
         dataToSave.put("Id",this.succursaleUid);
+        dataToSave.put("servicesRequests",servicesRequest);
         String documentPath = firestoreUsersRoute + this.succursaleUid;
 
         fb.setDocument(documentPath, dataToSave);

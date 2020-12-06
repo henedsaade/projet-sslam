@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.servicenovigrad">
 
     <uses-permission android:name="android.permission.INTERNET " />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_CALENDAR"/>
 
     <application
         android:allowBackup="true"
@@ -25,14 +28,12 @@
         <activity android:name=".activities.employe_service" />
         <activity android:name=".activities.EmployeeOptions" />
         <activity android:name=".activities.SetServiceActivity" />
-        <activity android:name=".services.ListService" />
         <activity android:name=".activities.AdminActivity" />
         <activity
             android:name=".activities.DocumentUploadActivity"
             android:label="@string/title_activity_document_upload"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.CreateServiceActivity" />
-        <activity android:name=".AdminPage" />
         <activity
             android:name=".activities.WelcomeActivity"
             android:label="@string/title_activity_welcome_page"

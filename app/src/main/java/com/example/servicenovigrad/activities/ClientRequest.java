@@ -35,6 +35,7 @@ public class ClientRequest extends AppCompatActivity {
     List<String>  serviceAvailable;
     HoursAdapter servicesAdapter;
     FbWrapper fb = FbWrapper.getInstance();
+    String id = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +52,12 @@ public class ClientRequest extends AppCompatActivity {
         services.setAdapter(servicesAdapter);
 
 
-        String id = "";
+
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             id = extras.getString("SuccursaleId");
         }
+        final String finalId = id;
 
         services.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -63,12 +65,12 @@ public class ClientRequest extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), ClientInformations.class);
                 String n = serviceAvailable.get(position);
                 intent.putExtra("service", Service.toCamelCase(n));
-                intent.putExtra("succursale",id);
+                intent.putExtra("succursale",finalId);
                 startActivity(intent);
             }
         });
 
-        final String finalId = id;
+
         fb.getDocument("succursales/"+id).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -104,7 +106,7 @@ public class ClientRequest extends AppCompatActivity {
 
 
 
-                    number.setText(number_database);
+                    number.setText("Numero de succursale: " + number_database);
 
 
                 }

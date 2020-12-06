@@ -1,107 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.ClientInformations">
 
-    <EditText
-        android:id="@+id/clientFirstName"
-        android:layout_width="292dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="36dp"
-        android:ems="10"
-        android:hint="Prénom"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.416"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/clientLastName"
-        android:layout_width="290dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:hint="Nom"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/clientFirstName"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="@+id/clientFirstName"
-        app:layout_constraintTop_toBottomOf="@+id/clientFirstName" />
+        <EditText
+            android:id="@+id/clientFirstName"
+            android:layout_width="292dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="44dp"
+            android:ems="10"
+            android:hint="Prénom"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.449"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/clientAdress"
-        android:layout_width="292dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="28dp"
-        android:ems="10"
-        android:hint="Adresse complète"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/clientLastName"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/clientLastName"
-        app:layout_constraintTop_toBottomOf="@+id/clientLastName" />
+        <EditText
+            android:id="@+id/clientLastName"
+            android:layout_width="290dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint="Nom"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="@+id/clientFirstName"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="@+id/clientFirstName"
+            app:layout_constraintTop_toBottomOf="@+id/clientFirstName" />
 
-    <EditText
-        android:id="@+id/clientBirthDate"
-        android:layout_width="288dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="44dp"
-        android:ems="10"
-        android:hint="Date de naissance (aaaa/mm/jj)"
-        android:inputType="time"
-        app:layout_constraintEnd_toEndOf="@+id/clientAdress"
-        app:layout_constraintHorizontal_bias="0.75"
-        app:layout_constraintStart_toStartOf="@+id/clientAdress"
-        app:layout_constraintTop_toBottomOf="@+id/clientAdress" />
+        <EditText
+            android:id="@+id/clientAdress"
+            android:layout_width="292dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="28dp"
+            android:ems="10"
+            android:hint="Adresse complète"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="@+id/clientLastName"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/clientLastName"
+            app:layout_constraintTop_toBottomOf="@+id/clientLastName" />
 
-    <EditText
-        android:id="@+id/clientSuppInfo"
-        android:layout_width="291dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="44dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:hint="Informations supplémentaires"
-        android:inputType="textMultiLine"
-        app:layout_constraintEnd_toEndOf="@+id/clientBirthDate"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/clientBirthDate"
-        app:layout_constraintTop_toBottomOf="@+id/clientBirthDate" />
+        <EditText
+            android:id="@+id/clientBirthDate"
+            android:layout_width="288dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="44dp"
+            android:ems="10"
+            android:hint="Date de naissance (aaaa/mm/jj)"
+            android:inputType="time"
+            app:layout_constraintEnd_toEndOf="@+id/clientAdress"
+            app:layout_constraintHorizontal_bias="0.75"
+            app:layout_constraintStart_toStartOf="@+id/clientAdress"
+            app:layout_constraintTop_toBottomOf="@+id/clientAdress" />
 
-    <Button
-        android:id="@+id/upload"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
-        android:text="Importer des images"
-        app:layout_constraintEnd_toEndOf="@+id/clientSuppInfo"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="@+id/clientSuppInfo"
-        app:layout_constraintTop_toBottomOf="@+id/clientSuppInfo" />
+        <EditText
+            android:id="@+id/clientSuppInfo"
+            android:layout_width="291dp"
+            android:layout_height="58dp"
+            android:layout_marginTop="40dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Informations supplémentaires"
+            android:inputType="textMultiLine"
+            app:layout_constraintEnd_toEndOf="@+id/clientBirthDate"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/clientBirthDate"
+            app:layout_constraintTop_toBottomOf="@+id/clientBirthDate" />
 
-    <Button
-        android:id="@+id/submit"
-        android:layout_width="129dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:text="Soumettre"
-        app:layout_constraintEnd_toEndOf="@+id/upload"
-        app:layout_constraintHorizontal_bias="0.659"
-        app:layout_constraintStart_toStartOf="@+id/upload"
-        app:layout_constraintTop_toBottomOf="@+id/upload" />
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="129dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:text="Soumettre"
+            app:layout_constraintEnd_toEndOf="@+id/uploadFiles"
+            app:layout_constraintHorizontal_bias="0.472"
+            app:layout_constraintStart_toStartOf="@+id/uploadFiles"
+            app:layout_constraintTop_toBottomOf="@+id/uploadFiles" />
 
-    <Button
-        android:id="@+id/uploadFiles"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:text="Importer des fichiers"
-        app:layout_constraintEnd_toEndOf="@+id/clientSuppInfo"
-        app:layout_constraintStart_toStartOf="@+id/clientSuppInfo"
-        app:layout_constraintTop_toBottomOf="@+id/clientSuppInfo" />
+        <Button
+            android:id="@+id/uploadFiles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:text="Importer des fichiers"
+            app:layout_constraintEnd_toEndOf="@+id/clientSuppInfo"
+            app:layout_constraintHorizontal_bias="0.542"
+            app:layout_constraintStart_toStartOf="@+id/clientSuppInfo"
+            app:layout_constraintTop_toBottomOf="@+id/clientSuppInfo" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>
