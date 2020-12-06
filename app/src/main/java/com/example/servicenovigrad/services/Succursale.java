@@ -11,7 +11,9 @@ import java.util.List;
 import java.util.Map;
 
 public class Succursale {
-    String [] address ;
+
+    String number;
+    String  address ;
     DocumentReference employeeUIDS;
     List<DocumentReference> services;
     Map<String,String> worksHours;
@@ -20,7 +22,8 @@ public class Succursale {
     FbWrapper fb = FbWrapper.getInstance();
     final String firestoreUsersRoute = "succursales/";
 
-    public Succursale(String [] adress, Map<String,String> worksHours, String succursaleUid,String employeeUid) {
+    public Succursale(String number, String  adress, Map<String,String> worksHours, String succursaleUid,String employeeUid) {
+        this.number = number;
         this.address = adress;
         this.worksHours = worksHours;
         this.services = new ArrayList<>();
@@ -32,7 +35,7 @@ public class Succursale {
         return worksHours;
     }
 
-    public String[] getAddress() {
+    public String getAddress() {
         return address;
     }
 
@@ -54,11 +57,13 @@ public class Succursale {
 
     public void saveAccountToFirestore(FbWrapper fb, FieldValue timestamp) {
         Map<String, Object> dataToSave = new HashMap<String, Object>();
+        dataToSave.put("number",this.number);
         dataToSave.put("adress", this.services);
         dataToSave.put("createdAt", timestamp);
         dataToSave.put("workHours", this.worksHours);
         dataToSave.put("services", this.services);
         dataToSave.put("employeeUIDS", this.employeeUIDS);
+        dataToSave.put("Id",this.succursaleUid);
         String documentPath = firestoreUsersRoute + this.succursaleUid;
 
         fb.setDocument(documentPath, dataToSave);

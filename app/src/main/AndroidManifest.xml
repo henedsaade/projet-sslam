@@ -11,14 +11,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.setHourActivity"></activity>
+        <activity android:name=".activities.SuccursaleWorkHour"></activity>
+        <activity android:name=".activities.ClientInformations" />
+        <activity android:name=".activities.ClientRequest" />
+        <activity android:name=".activities.ClientActivity" />
+        <activity android:name=".activities.setHourActivity" />
         <activity android:name=".activities.SuccursaleAvailableServices" />
         <activity
             android:name=".activities.CreateSuccursale"
             android:label="@string/title_activity_create_succursale"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.EmployeeManageServices" />
-        <activity android:name=".activities.employe_service"></activity>
+        <activity android:name=".activities.employe_service" />
         <activity android:name=".activities.EmployeeOptions" />
         <activity android:name=".activities.SetServiceActivity" />
         <activity android:name=".services.ListService" />

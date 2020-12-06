@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class CreateSuccursale extends AppCompatActivity {
 
-    EditText street, buildingNumber, monday,tuesday,wednesday,thursday,friday,saturday,sunday;
+    EditText succNumber, street, buildingNumber, monday,tuesday,wednesday,thursday,friday,saturday,sunday;
     FbWrapper fb = FbWrapper.getInstance();
     Button terminate;
 
@@ -37,6 +37,8 @@ public class CreateSuccursale extends AppCompatActivity {
 
         street = findViewById(R.id.street);
         buildingNumber = findViewById(R.id.buildingNo);
+        succNumber = findViewById(R.id.succNumber);
+
         monday = findViewById(R.id.monday);
         tuesday = findViewById(R.id.tuesday);
         wednesday = findViewById(R.id.wednesday);
@@ -50,9 +52,10 @@ public class CreateSuccursale extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                String myStreet = street.getText().toString();
-                String myBuilding = buildingNumber.getText().toString();
-                String [] adress = new String [] {myStreet,myBuilding};
+                String number = succNumber.getText().toString().trim();
+                String myStreet = street.getText().toString().trim();
+                String myBuilding = buildingNumber.getText().toString().trim();
+                String adress = myBuilding + " " + myStreet;
 
                 String day1 = monday.getText().toString();
                 String day2 = tuesday.getText().toString();
@@ -80,7 +83,7 @@ public class CreateSuccursale extends AppCompatActivity {
                     String succursaleUid = employeUid + "- succursale";
 
 
-                    Succursale mySuccursale = new Succursale(adress,worksHours,succursaleUid,employeUid);
+                    Succursale mySuccursale = new Succursale(number,adress,worksHours,succursaleUid,employeUid);
                     mySuccursale.saveAccountToFirestore(fb, FieldValue.serverTimestamp());
 
                     fb.getDocumentRef("users/"+employeUid).update("succursale",

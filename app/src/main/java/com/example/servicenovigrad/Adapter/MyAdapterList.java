@@ -1,4 +1,4 @@
-package com.example.servicenovigrad.activities;
+package com.example.servicenovigrad.Adapter;
 
 import android.app.Activity;
 import android.content.Context;

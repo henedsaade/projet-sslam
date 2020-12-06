@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.servicenovigrad.Adapter.HoursAdapter;
 import com.example.servicenovigrad.R;
 import com.example.servicenovigrad.fb.FbWrapper;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -87,7 +88,7 @@ public class setHourActivity extends AppCompatActivity {
 
 
 
-                            ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplication(),R.layout.simple_list_item_1,hours);
+                            HoursAdapter adapter = new HoursAdapter(setHourActivity.this,hours);
                             worksHours.setAdapter(adapter);
 
                         }
